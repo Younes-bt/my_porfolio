@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Crafting immersive experiences",
+    "title": "Digital products that feel alive",
+    "subtitle": "I am a front-end engineer focused on performant, accessible interfaces with delightful details.",
+    "primaryCta": "View Projects",
+    "secondaryCta": "Contact Me"
+  },
+  "stats": [
+    { "label": "Years of experience", "value": "7+" },
+    { "label": "Products launched", "value": "26" },
+    { "label": "Happy clients", "value": "18" }
+  ],
+  "projects": {
+    "title": "Selected work",
+    "subtitle": "A snapshot of interfaces blending motion, craft, and strategy.",
+    "actionLabel": "See shots",
+    "items": [
+      {
+        "title": "Neon Commerce",
+        "description": "A modular storefront platform with adaptive layouts and personalization.",
+        "metrics": "+37% conversion uplift",
+        "tech": ["React", "Tailwind", "Framer Motion"]
+      },
+      {
+        "title": "Atlas Design System",
+        "description": "Customizable component system for a fintech scale-up supporting 4 brands.",
+        "metrics": "200+ components",
+        "tech": ["Storybook", "Radix", "ShadCN"]
+      },
+      {
+        "title": "Pulse Analytics",
+        "description": "Realtime dashboard layering micro-interactions on top of dense data.",
+        "metrics": "12ms response",
+        "tech": ["Vite", "WebSockets", "D3"]
+      }
+    ]
+  },
+  "experience": {
+    "title": "Recent collaborations",
+    "subtitle": "Long-term work with distributed design and product teams.",
+    "items": [
+      {
+        "title": "Senior Front-end Consultant",
+        "company": "Northwind Labs",
+        "period": "2023 — Present",
+        "description": "Led the rebuild of the SaaS onboarding with motion-first storytelling."
+      },
+      {
+        "title": "Product Engineer",
+        "company": "Aurora Studio",
+        "period": "2020 — 2023",
+        "description": "Built internal tooling and launched marketing sites in 8 languages."
+      },
+      {
+        "title": "Interactive Developer",
+        "company": "Fjord Collective",
+        "period": "2018 — 2020",
+        "description": "Partnered with agencies to deliver award-winning experiential sites."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let’s create something remarkable",
+    "subtitle": "Open for freelance and collaborative opportunities.",
+    "emailLabel": "Email",
+    "availability": "Currently booking for Q2",
+    "statusLabel": "Status",
+    "locationLabel": "Remote / Paris",
+    "locationDescription": "Available across EU/US timezones.",
+    "ctaSchedule": "Schedule a call"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français"
+  }
+}

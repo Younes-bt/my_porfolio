@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "experience": "Expérience",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Des expériences immersives",
+    "title": "Des produits numériques vibrants",
+    "subtitle": "Ingénieur front-end spécialisé dans les interfaces performantes, inclusives et animées.",
+    "primaryCta": "Voir les projets",
+    "secondaryCta": "Me contacter"
+  },
+  "stats": [
+    { "label": "Années d'expérience", "value": "7+" },
+    { "label": "Produits livrés", "value": "26" },
+    { "label": "Clients satisfaits", "value": "18" }
+  ],
+  "projects": {
+    "title": "Travaux sélectionnés",
+    "subtitle": "Un aperçu d'interfaces mêlant mouvement, précision et stratégie.",
+    "actionLabel": "Voir les aperçus",
+    "items": [
+      {
+        "title": "Neon Commerce",
+        "description": "Plateforme e-commerce modulaire avec layouts adaptatifs et personnalisation.",
+        "metrics": "+37 % de conversion",
+        "tech": ["React", "Tailwind", "Framer Motion"]
+      },
+      {
+        "title": "Atlas Design System",
+        "description": "Système de composants personnalisable pour une scale-up fintech, 4 marques.",
+        "metrics": "200+ composants",
+        "tech": ["Storybook", "Radix", "ShadCN"]
+      },
+      {
+        "title": "Pulse Analytics",
+        "description": "Tableau de bord temps réel où les micro-interactions rendent la data lisible.",
+        "metrics": "12 ms de latence",
+        "tech": ["Vite", "WebSockets", "D3"]
+      }
+    ]
+  },
+  "experience": {
+    "title": "Collaborations récentes",
+    "subtitle": "Des missions longues avec des équipes produit distribuées.",
+    "items": [
+      {
+        "title": "Consultant Front-end Senior",
+        "company": "Northwind Labs",
+        "period": "2023 — Aujourd'hui",
+        "description": "Refonte de l'onboarding SaaS avec un storytelling animé."
+      },
+      {
+        "title": "Ingénieur Produit",
+        "company": "Aurora Studio",
+        "period": "2020 — 2023",
+        "description": "Outils internes et sites marketing déployés dans 8 langues."
+      },
+      {
+        "title": "Développeur interactif",
+        "company": "Fjord Collective",
+        "period": "2018 — 2020",
+        "description": "Livraison de sites expérimentaux récompensés avec les agences internationales."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Créons quelque chose de marquant",
+    "subtitle": "Disponible pour des missions freelance et des collaborations.",
+    "emailLabel": "Email",
+    "availability": "Planning ouvert pour T2",
+    "statusLabel": "Statut",
+    "locationLabel": "Remote / Paris",
+    "locationDescription": "Disponible sur les fuseaux EU/US.",
+    "ctaSchedule": "Planifier un appel"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français"
+  }
+}

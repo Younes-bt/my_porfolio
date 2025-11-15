@@ -28,7 +28,7 @@ const terminalScript = [
     ],
   },
   { tokens: [{ text: '$ and graphic designer for fun.', className: 'text-slate-300' }] },
-  { tokens: [{ text: '$', className: 'text-slate-500' }] },
+
   { tokens: [{ text: '$ you can open my full resume here:', className: 'text-slate-300' }] },
   {
     tokens: [
@@ -36,7 +36,6 @@ const terminalScript = [
       { text: '[ resume ]', className: 'text-amber-300' },
     ],
   },
-  { tokens: [{ text: '$', className: 'text-slate-500' }] },
   { tokens: [{ text: '$ or jump directly to my projects here:', className: 'text-slate-300' }] },
   {
     tokens: [
@@ -44,7 +43,7 @@ const terminalScript = [
       { text: '[ projects ]', className: 'text-amber-300' },
     ],
   },
-  { tokens: [{ text: '$', className: 'text-slate-500' }] },
+
   {
     tokens: [
       {
@@ -53,8 +52,6 @@ const terminalScript = [
       },
     ],
   },
-  { tokens: [{ text: '$', className: 'text-emerald-300' }] },
-  { tokens: [{ text: '$', className: 'text-emerald-300' }] },
   {
     tokens: [
       { text: '$ ', className: 'text-slate-400' },
@@ -84,7 +81,16 @@ export default function HomePage() {
               <p className="ml-auto font-mono text-xs text-slate-400">portfolio.sh</p>
             </div>
             <TerminalTyping />
-            <div className="absolute -right-5 top-1/2 hidden h-px w-10 -translate-y-1/2 bg-slate-400/60 lg:block" />
+            <div className="absolute -right-8 top-1/2 hidden -translate-y-1/2 items-center gap-2 text-slate-300 lg:flex">
+              <span className="h-px w-10 bg-slate-400/60" />
+              <ArrowRight className="h-4 w-4 text-emerald-400" />
+            </div>
+            <div className="lg:hidden">
+              <div className="flex flex-col items-center gap-1 py-4 text-emerald-400">
+                <span className="h-px w-12 bg-emerald-400/40" />
+                <ArrowRight className="h-5 w-5 rotate-90" />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
@@ -94,7 +100,7 @@ export default function HomePage() {
             className="rounded-[24px] border border-slate-900/10 bg-white/80 shadow-2xl shadow-slate-900/10 dark:border-white/10 dark:bg-slate-900/70 sm:rounded-[28px]"
           >
             <div className="flex items-center justify-between rounded-t-[24px] border-b border-slate-900/10 px-4 py-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400 sm:rounded-t-[28px] sm:px-6">
-              <span>profile.exe</span>
+              <span>profile.HTML</span>
               <div className="flex items-center gap-1 text-slate-400">
                 <span className="h-1.5 w-6 rounded-full bg-slate-200 dark:bg-white/20" />
                 <span className="h-3 w-3 rounded-full border border-slate-300 dark:border-white/30" />

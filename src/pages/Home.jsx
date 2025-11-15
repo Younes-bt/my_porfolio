@@ -62,7 +62,7 @@ const terminalScript = [
 
 export default function HomePage() {
   const { t } = useTranslation();
-  const projects = t('projects.items', { returnObjects: true });
+  const story = t('story', { returnObjects: true });
 
   return (
     <div className="space-y-20">
@@ -112,13 +112,14 @@ export default function HomePage() {
                 <img src="/me.png" alt="Younes portrait" className="h-40 w-40 object-cover" />
               </div>
               <div className="space-y-4">
-                <p className="text-sm uppercase tracking-[0.3em] text-emerald-500 dark:text-emerald-300">Hello,</p>
-                <h1 className="text-3xl font-display text-slate-900 dark:text-white">
-                  I am <span className="text-emerald-500 dark:text-emerald-300">YOUNES EL BETTATE</span>
-                </h1>
-                <p className="text-base text-slate-600 dark:text-slate-300">
-                  Full stack developer and Graphic Designer for FUN.
+                <p className="text-sm uppercase tracking-[0.3em] text-emerald-500 dark:text-emerald-300">
+                  {t('hero.profile.greeting')}
                 </p>
+                <h1 className="text-3xl font-display text-slate-900 dark:text-white">
+                  {t('hero.profile.title.prefix')}{' '}
+                  <span className="text-emerald-500 dark:text-emerald-300">{t('hero.profile.title.highlight')}</span>
+                </h1>
+                <p className="text-base text-slate-600 dark:text-slate-300">{t('hero.profile.role')}</p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <Button asChild size="lg">
                     <Link to="/projects" className="flex items-center gap-2">
@@ -128,7 +129,7 @@ export default function HomePage() {
                   </Button>
                   <Button variant="ghost" size="lg" asChild>
                     <Link to="/contact" className="flex items-center gap-2">
-                      Hire Me
+                      {t('hero.profile.hireCta')}
                       <Star className="h-5 w-5" />
                     </Link>
                   </Button>
@@ -140,56 +141,34 @@ export default function HomePage() {
       </section>
 
       <Reveal>
-        <section className="space-y-6">
-          <div className="flex flex-col gap-2">
-            <p className="text-sm uppercase tracking-[0.3em] text-emerald-500 dark:text-emerald-300">
-              {t('projects.title')}
-            </p>
-            <h2 className="text-3xl font-display text-slate-900 transition-colors dark:text-white">
-              {t('projects.subtitle')}
-            </h2>
+        <section className="relative overflow-hidden rounded-[32px] border border-slate-900/10 bg-gradient-to-br from-white via-emerald-50/40 to-blue-50 px-6 py-12 shadow-2xl shadow-slate-900/10 transition-colors dark:border-white/10 dark:from-slate-900 dark:via-slate-900/80 dark:to-slate-900/40 dark:shadow-slate-900/60 md:px-16">
+          <div className="absolute inset-0 opacity-50 blur-3xl dark:opacity-20" aria-hidden>
+            <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-br from-emerald-500/20 to-transparent" />
+            <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-br from-sky-400/20 to-transparent" />
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {projects.slice(0, 3).map((project) => (
-              <motion.div
-                key={project.title}
-                whileHover={{ y: -6 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="h-full"
-              >
-                <Card className="flex h-full flex-col border-slate-900/10 bg-white/80 text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-white">
-                  <CardHeader>
-                    <CardTitle className="text-lg text-slate-900 dark:text-white">{project.title}</CardTitle>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{project.description}</p>
-                  </CardHeader>
-                  <CardContent className="mt-auto space-y-3 text-sm text-slate-600 dark:text-slate-300">
-                    <p>{project.metrics}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="default"
-                          className="bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-          <div className="flex justify-end">
-            <Button variant="ghost" asChild>
-              <Link
-                to="/projects"
-                className="flex items-center gap-2 text-slate-700 transition-colors dark:text-slate-200"
-              >
-                {t('hero.primaryCta')}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+          <div className="relative grid gap-10 lg:grid-cols-[0.75fr_1fr]">
+            <div className="space-y-6">
+              <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 dark:text-emerald-300">
+                {story.eyebrow}
+              </p>
+              <h2 className="text-3xl font-display text-slate-900 dark:text-white">{story.title}</h2>
+              <div className="rounded-3xl border border-slate-900/10 bg-white/70 p-6 text-base text-slate-700 shadow-lg dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
+                {story.body?.[0]}
+              </div>
+            </div>
+            <div className="space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-200">
+              {story.body?.slice(1).map((paragraph, index) => (
+                <p
+                  key={paragraph.slice(0, 15) + index}
+                  className="rounded-2xl border border-transparent bg-white/70 p-5 shadow dark:bg-white/5"
+                >
+                  {paragraph}
+                </p>
+              ))}
+              <div className="rounded-3xl border border-emerald-400/40 bg-emerald-500/10 p-6 text-lg font-display text-emerald-700 shadow-lg dark:border-emerald-400/50 dark:bg-emerald-400/10 dark:text-emerald-200">
+                {story.closing}
+              </div>
+            </div>
           </div>
         </section>
       </Reveal>

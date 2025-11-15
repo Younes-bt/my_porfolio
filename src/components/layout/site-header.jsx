@@ -19,9 +19,9 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-900/10 bg-white/80 backdrop-blur-xl transition-colors dark:border-white/5 dark:bg-slate-950/70">
-      <div className="container flex h-16 items-center justify-between">
-        <NavLink to="/" className="flex items-center">
+    <header className="sticky top-0 z-50 border-b border-slate-900/10 bg-sky-500/80 backdrop-blur-xl transition-colors dark:border-white/5 dark:bg-sky-900/75">
+      <div className="container relative flex h-16 items-center justify-center md:justify-between">
+        <NavLink to="/" className="flex items-center justify-center md:justify-start">
           <img src="/logo2-final copy.svg" alt="my portfolio" className="h-9 dark:hidden" />
           <img src="/logo2-final white.svg" alt="" aria-hidden="true" className="hidden h-9 dark:block" />
           <span className="sr-only">Home</span>
@@ -52,7 +52,12 @@ export function SiteHeader() {
             </NavLink>
           </Button>
         </div>
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setOpen((prev) => !prev)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-0 md:hidden"
+          onClick={() => setOpen((prev) => !prev)}
+        >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>

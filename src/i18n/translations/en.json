@@ -10,12 +10,30 @@
     "title": "Digital products that feel alive",
     "subtitle": "I am a front-end engineer focused on performant, accessible interfaces with delightful details.",
     "primaryCta": "View Projects",
-    "secondaryCta": "Contact Me"
+    "secondaryCta": "Contact Me",
+    "profile": {
+      "greeting": "HELLO,",
+      "title": {
+        "prefix": "I am",
+        "highlight": "YOUNES EL BETTATE"
+      },
+      "role": "Full stack developer and Graphic Designer for FUN.",
+      "hireCta": "Hire Me"
+    }
   },
   "stats": [
-    { "label": "Years of experience", "value": "7+" },
-    { "label": "Products launched", "value": "26" },
-    { "label": "Happy clients", "value": "18" }
+    {
+      "label": "Years of experience",
+      "value": "7+"
+    },
+    {
+      "label": "Products launched",
+      "value": "26"
+    },
+    {
+      "label": "Happy clients",
+      "value": "18"
+    }
   ],
   "projects": {
     "title": "Selected work",
@@ -26,19 +44,31 @@
         "title": "Neon Commerce",
         "description": "A modular storefront platform with adaptive layouts and personalization.",
         "metrics": "+37% conversion uplift",
-        "tech": ["React", "Tailwind", "Framer Motion"]
+        "tech": [
+          "React",
+          "Tailwind",
+          "Framer Motion"
+        ]
       },
       {
         "title": "Atlas Design System",
         "description": "Customizable component system for a fintech scale-up supporting 4 brands.",
         "metrics": "200+ components",
-        "tech": ["Storybook", "Radix", "ShadCN"]
+        "tech": [
+          "Storybook",
+          "Radix",
+          "ShadCN"
+        ]
       },
       {
         "title": "Pulse Analytics",
         "description": "Realtime dashboard layering micro-interactions on top of dense data.",
         "metrics": "12ms response",
-        "tech": ["Vite", "WebSockets", "D3"]
+        "tech": [
+          "Vite",
+          "WebSockets",
+          "D3"
+        ]
       }
     ]
   },
@@ -78,6 +108,18 @@
   },
   "languages": {
     "en": "English",
-    "fr": "Français"
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "story": {
+    "eyebrow": "Self-made builder",
+    "title": "Hey, I'm Younes — a Self-Taught Full-Stack Developer, Designer, and Builder of Whatever Needs to Exist.",
+    "body": [
+      "I learned everything by myself — starting from CS50, four years ago, all the way to building full products with Django, React, React Native, Tailwind, Docker, and everything modern devs rely on. I've been coding seriously for 4 years, and spending the last 12 months deep in vibe coding: working with Claude Code, GPT5-Codex, Gemini 2.5, Cursor, and VS Code to move faster, learn smarter, and build cleaner.",
+      "I'm the founder of OPICOM Tech, where I help schools, businesses, and communities turn ideas into real digital products — websites, dashboards, mobile apps, data platforms, desktop apps, you name it. If it solves a problem, I build it.",
+      "I also bring a creative side: I design my own logos, visuals, ads, and I edit videos for clients. I'm solid in Photoshop and Illustrator, and I love mixing logic with creativity.",
+      "Every project I ship — from Ksar-Data, to restaurant websites, school systems, AI experiments, Tauri desktop apps, or civic tech tools — is a result of unstoppable curiosity and a constant drive to learn, adapt, and master new technologies."
+    ],
+    "closing": "If you're looking for someone self-made, fast-moving, honest, and obsessed with building useful things… Younes is here. Let's create something meaningful."
   }
 }

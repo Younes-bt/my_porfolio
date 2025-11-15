@@ -10,12 +10,30 @@
     "title": "Des produits numériques vibrants",
     "subtitle": "Ingénieur front-end spécialisé dans les interfaces performantes, inclusives et animées.",
     "primaryCta": "Voir les projets",
-    "secondaryCta": "Me contacter"
+    "secondaryCta": "Me contacter",
+    "profile": {
+      "greeting": "BONJOUR,",
+      "title": {
+        "prefix": "Je suis",
+        "highlight": "YOUNES EL BETTATE"
+      },
+      "role": "Développeur full stack et designer graphique par passion.",
+      "hireCta": "Engagez-moi"
+    }
   },
   "stats": [
-    { "label": "Années d'expérience", "value": "7+" },
-    { "label": "Produits livrés", "value": "26" },
-    { "label": "Clients satisfaits", "value": "18" }
+    {
+      "label": "Années d'expérience",
+      "value": "7+"
+    },
+    {
+      "label": "Produits livrés",
+      "value": "26"
+    },
+    {
+      "label": "Clients satisfaits",
+      "value": "18"
+    }
   ],
   "projects": {
     "title": "Travaux sélectionnés",
@@ -26,19 +44,31 @@
         "title": "Neon Commerce",
         "description": "Plateforme e-commerce modulaire avec layouts adaptatifs et personnalisation.",
         "metrics": "+37 % de conversion",
-        "tech": ["React", "Tailwind", "Framer Motion"]
+        "tech": [
+          "React",
+          "Tailwind",
+          "Framer Motion"
+        ]
       },
       {
         "title": "Atlas Design System",
         "description": "Système de composants personnalisable pour une scale-up fintech, 4 marques.",
         "metrics": "200+ composants",
-        "tech": ["Storybook", "Radix", "ShadCN"]
+        "tech": [
+          "Storybook",
+          "Radix",
+          "ShadCN"
+        ]
       },
       {
         "title": "Pulse Analytics",
         "description": "Tableau de bord temps réel où les micro-interactions rendent la data lisible.",
         "metrics": "12 ms de latence",
-        "tech": ["Vite", "WebSockets", "D3"]
+        "tech": [
+          "Vite",
+          "WebSockets",
+          "D3"
+        ]
       }
     ]
   },
@@ -78,6 +108,18 @@
   },
   "languages": {
     "en": "English",
-    "fr": "Français"
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "story": {
+    "eyebrow": "Créateur autodidacte",
+    "title": "Salut, moi c'est Younes — Développeur Full-Stack autodidacte, designer, et créateur de solutions qui fonctionnent vraiment.",
+    "body": [
+      "J'ai tout appris seul — en commençant par CS50 il y a quatre ans, jusqu'à construire aujourd'hui des produits complets avec Django, React, React Native, Tailwind, Docker et les outils modernes des développeurs. Je code depuis 4 ans et je consacre les 12 derniers mois au vibe coding: travailler avec Claude Code, GPT5-Codex, Gemini 2.5 Pro, Cursor et VS Code pour aller plus vite, apprendre plus intelligemment et livrer des applications impeccables.",
+      "Je suis le fondateur d'OPICOM Tech, où j'aide écoles, entreprises et communautés à transformer leurs idées en produits digitaux: sites web, tableaux de bord, applications mobiles, plateformes de données ou apps desktop. S'il y a un problème à résoudre, je le construis.",
+      "J'apporte aussi une touche créative: je conçois logos, visuels, publicités et je monte des vidéos pour mes clients. Je maîtrise Photoshop et Illustrator et j'aime combiner logique et créativité.",
+      "Chaque projet que je livre — de Ksar-Data aux sites de restaurants, systèmes scolaires, expériences IA, apps Tauri ou outils civiques — est le résultat d'une curiosité constante et d'une envie d'apprendre et maîtriser de nouvelles technologies."
+    ],
+    "closing": "Si vous cherchez quelqu'un d'autodidacte, rapide, honnête et passionné par la création de solutions utiles… Younes est là. Construisons quelque chose de significatif."
   }
 }

@@ -1,32 +1,42 @@
-import { Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 
-const supportedLocales = ['en', 'fr'];
+const languageOptions = [
+  { code: 'en', flag: '🇬🇧' },
+  { code: 'fr', flag: '🇫🇷' },
+  { code: 'ar', flag: '🇲🇦' },
+];
 
 export function LanguageToggle({ orientation = 'horizontal' }) {
   const { i18n, t } = useTranslation();
-  const active = i18n.resolvedLanguage ?? i18n.language;
+  const active = (i18n.resolvedLanguage ?? i18n.language ?? 'en').split('-')[0];
+  const currentOption = languageOptions.find((opt) => opt.code === active) ?? languageOptions[0];
+
+  const handleChange = (value) => {
+    i18n.changeLanguage(value);
+  };
 
   return (
-    <div className={cn('flex items-center gap-2', orientation === 'vertical' && 'flex-col items-stretch')}>
-      <div className="flex items-center gap-1 text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
-        <Globe className="h-4 w-4" />
-        <span>{t(`languages.${active}`)}</span>
-      </div>
-      <div className={cn('flex gap-2', orientation === 'vertical' && 'flex-col')}>
-        {supportedLocales.map((locale) => (
-          <Button
-            key={locale}
-            variant={active === locale ? 'secondary' : 'ghost'}
-            size="sm"
-            onClick={() => i18n.changeLanguage(locale)}
-          >
-            {t(`languages.${locale}`)}
-          </Button>
-        ))}
-      </div>
+    <div className={cn('min-w-[140px]', orientation === 'vertical' && 'w-full')}>
+      <Select value={active} onValueChange={handleChange}>
+        <SelectTrigger className={cn('h-10 w-full justify-between px-4', orientation === 'vertical' && 'w-full')}>
+          <span className="flex items-center gap-2 text-sm text-slate-900 dark:text-white">
+            <span className="text-base leading-none">{currentOption.flag}</span>
+            {t(`languages.${active}`)}
+          </span>
+        </SelectTrigger>
+        <SelectContent align="end" className="min-w-[180px]">
+          {languageOptions.map((option) => (
+            <SelectItem key={option.code} value={option.code} className="flex items-center gap-2">
+              <span className="flex items-center gap-2 text-sm">
+                <span className="text-base leading-none">{option.flag}</span>
+                {t(`languages.${option.code}`)}
+              </span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

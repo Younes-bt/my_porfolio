@@ -11,7 +11,7 @@ export function LanguageToggle({ orientation = 'horizontal' }) {
 
   return (
     <div className={cn('flex items-center gap-2', orientation === 'vertical' && 'flex-col items-stretch')}>
-      <div className="flex items-center gap-1 text-xs uppercase tracking-wide text-slate-400">
+      <div className="flex items-center gap-1 text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
         <Globe className="h-4 w-4" />
         <span>{t(`languages.${active}`)}</span>
       </div>

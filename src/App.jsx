@@ -8,7 +8,7 @@ import { SiteFooter } from '@/components/layout/site-footer';
 
 export default function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-950 text-white">
+    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
       <SiteHeader />
       <main className="container flex-1 py-12 md:py-16">
         <Routes>

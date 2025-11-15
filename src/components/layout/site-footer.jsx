@@ -11,20 +11,22 @@ const socialLinks = [
 export function SiteFooter() {
   const { t } = useTranslation();
   return (
-    <footer className="mt-24 border-t border-white/10 bg-slate-950/60">
+    <footer className="mt-24 border-t border-slate-900/10 bg-white/70 text-slate-700 transition-colors dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-300">
       <div className="container flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-display text-xl text-white">my.portfolio</p>
-          <p className="text-sm text-slate-400">© {new Date().getFullYear()} · {t('hero.subtitle')}</p>
+          <p className="font-display text-xl text-slate-900 dark:text-white">my.portfolio</p>
+          <p className="text-sm">
+            (c) {new Date().getFullYear()} · {t('hero.subtitle')}
+          </p>
         </div>
-        <div className="flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:gap-8">
-          <NavLink to="/projects" className="hover:text-white">
+        <div className="flex flex-col gap-4 text-sm text-slate-600 dark:text-slate-400 md:flex-row md:items-center md:gap-8">
+          <NavLink to="/projects" className="transition hover:text-slate-900 dark:hover:text-white">
             {t('nav.projects')}
           </NavLink>
-          <NavLink to="/experience" className="hover:text-white">
+          <NavLink to="/experience" className="transition hover:text-slate-900 dark:hover:text-white">
             {t('nav.experience')}
           </NavLink>
-          <NavLink to="/contact" className="hover:text-white">
+          <NavLink to="/contact" className="transition hover:text-slate-900 dark:hover:text-white">
             {t('nav.contact')}
           </NavLink>
         </div>
@@ -35,7 +37,7 @@ export function SiteFooter() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white/80 transition hover:-translate-y-0.5 hover:border-white/40 hover:text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-900/10 text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-900/40 hover:text-slate-900 dark:border-white/10 dark:text-white/80 dark:hover:border-white/40 dark:hover:text-white"
             >
               <Icon className="h-5 w-5" />
               <span className="sr-only">{label}</span>

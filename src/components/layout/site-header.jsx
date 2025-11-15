@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LanguageToggle } from '@/components/language-toggle';
+import { ModeToggle } from '@/components/mode-toggle';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -18,20 +19,22 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/5">
+    <header className="sticky top-0 z-50 border-b border-slate-900/10 bg-white/80 backdrop-blur-xl transition-colors dark:border-white/5 dark:bg-slate-950/70">
       <div className="container flex h-16 items-center justify-between">
-        <NavLink to="/" className="text-lg font-display tracking-tight text-white">
-          my<span className="text-emerald-400">.portfolio</span>
+        <NavLink to="/" className="flex items-center">
+          <img src="/logo2-final copy.svg" alt="my portfolio" className="h-9 dark:hidden" />
+          <img src="/logo2-final white.svg" alt="" aria-hidden="true" className="hidden h-9 dark:block" />
+          <span className="sr-only">Home</span>
         </NavLink>
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden items-center gap-6 text-sm md:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.key}
               to={item.href}
               className={({ isActive }) =>
                 cn(
-                  'text-slate-300 transition hover:text-white',
-                  isActive && 'text-white font-semibold'
+                  'text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white',
+                  isActive && 'font-semibold text-slate-900 dark:text-white'
                 )
               }
             >
@@ -39,8 +42,9 @@ export function SiteHeader() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden items-center gap-4 md:flex">
           <LanguageToggle />
+          <ModeToggle />
           <Button variant="secondary" size="sm" asChild>
             <NavLink to="/contact" className="flex items-center gap-2">
               {t('hero.secondaryCta')}
@@ -53,14 +57,17 @@ export function SiteHeader() {
         </Button>
       </div>
       {open ? (
-        <div className="md:hidden border-t border-white/5 bg-slate-950/90 backdrop-blur px-4 pb-6">
+        <div className="border-t border-slate-900/10 bg-white/95 px-4 pb-6 shadow-lg backdrop-blur dark:border-white/5 dark:bg-slate-950/90 md:hidden">
           <div className="flex flex-col gap-4 pt-4 text-base">
             {navItems.map((item) => (
               <NavLink
                 key={item.key}
                 to={item.href}
                 className={({ isActive }) =>
-                  cn('text-slate-200', isActive && 'text-white font-semibold')
+                  cn(
+                    'text-slate-700 dark:text-slate-200',
+                    isActive && 'font-semibold text-slate-900 dark:text-white'
+                  )
                 }
                 onClick={() => setOpen(false)}
               >
@@ -68,6 +75,7 @@ export function SiteHeader() {
               </NavLink>
             ))}
             <LanguageToggle orientation="vertical" />
+            <ModeToggle size="default" className="w-full justify-between" />
             <Button variant="secondary" className="w-full" asChild>
               <NavLink to="/contact" onClick={() => setOpen(false)}>
                 {t('hero.secondaryCta')}

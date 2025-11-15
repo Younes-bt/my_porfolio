@@ -4,14 +4,16 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-full text-sm font-semibold tracking-tight transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-slate-950',
+  'inline-flex items-center justify-center rounded-full text-sm font-semibold tracking-tight transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-white dark:ring-offset-slate-950',
   {
     variants: {
       variant: {
         default: 'bg-emerald-400 text-slate-900 hover:bg-emerald-300 shadow-lg shadow-emerald-500/30',
-        secondary: 'bg-white/10 text-white hover:bg-white/20 border border-white/20 backdrop-blur',
-        ghost: 'text-slate-100 hover:bg-white/10',
-        outline: 'border border-white/30 text-white hover:bg-white/10',
+        secondary:
+          'border border-slate-900/10 bg-slate-900/5 text-slate-900 backdrop-blur hover:bg-slate-900/10 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20',
+        ghost: 'text-slate-700 hover:bg-slate-900/5 dark:text-slate-100 dark:hover:bg-white/10',
+        outline:
+          'border border-slate-900/20 text-slate-900 hover:bg-slate-900/5 dark:border-white/30 dark:text-white dark:hover:bg-white/10',
       },
       size: {
         default: 'h-11 px-6',

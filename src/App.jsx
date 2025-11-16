@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import HomePage from '@/pages/Home';
+import AboutPage from '@/pages/About';
 import ProjectsPage from '@/pages/Projects';
 import ExperiencePage from '@/pages/Experience';
 import ContactPage from '@/pages/Contact';
@@ -23,6 +24,7 @@ export default function App() {
       <main className="container flex-1 py-12 md:py-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/contact" element={<ContactPage />} />

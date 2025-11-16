@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "about": "About",
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact"
@@ -121,5 +122,22 @@
       "Every project I ship — from Ksar-Data, to restaurant websites, school systems, AI experiments, Tauri desktop apps, or civic tech tools — is a result of unstoppable curiosity and a constant drive to learn, adapt, and master new technologies."
     ],
     "closing": "If you're looking for someone self-made, fast-moving, honest, and obsessed with building useful things… Younes is here. Let's create something meaningful."
+  },
+  "about": {
+    "intro": {
+      "title": "Hey, I'm Younes — a Self-Taught Full-Stack Developer, Designer, and Builder of Whatever Needs to Exist.",
+      "paragraphs": [
+        "I learned everything by myself — starting from CS50, four years ago, all the way to building full products with Django, React, React Native, Tailwind, Docker, and everything modern devs rely on. I've been coding seriously for 4 years, and spending the last 12 months deep in vibe coding: working with Claude Code, GPT5-Codex, Gemini 2.5, Cursor, and VS Code to move faster, learn smarter, and build cleaner.",
+        "I'm the founder of OPICOM Tech, where I help schools, businesses, and communities turn ideas into real digital products — websites, dashboards, mobile apps, data platforms, desktop apps, you name it. If it solves a problem, I build it.",
+        "I also bring a creative side: I design my own logos, visuals, ads, and I edit videos for clients (I don't call myself a professional designer, but clients love the results). I'm solid in Photoshop and Illustrator, and I love mixing logic with creativity.",
+        "Every project I ship — from Ksar-Data, to restaurant websites, school systems, AI experiments, Tauri desktop apps, or civic tech tools — is a result of unstoppable curiosity and a constant drive to learn, adapt, and master new technologies.",
+        "If you're looking for someone self-made, fast-moving, honest, and obsessed with building useful things… Younes is here. Let's create something meaningful."
+      ]
+    },
+    "tabs": {
+      "backend": "Me as a backend developer",
+      "frontend": "Me as a frontend developer",
+      "designer": "Me as a designer"
+    }
   }
 }

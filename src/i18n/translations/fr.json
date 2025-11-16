@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Accueil",
+    "about": "À propos",
     "projects": "Projets",
     "experience": "Expérience",
     "contact": "Contact"
@@ -121,5 +122,22 @@
       "Chaque projet que je livre — de Ksar-Data aux sites de restaurants, systèmes scolaires, expériences IA, apps Tauri ou outils civiques — est le résultat d'une curiosité constante et d'une envie d'apprendre et maîtriser de nouvelles technologies."
     ],
     "closing": "Si vous cherchez quelqu'un d'autodidacte, rapide, honnête et passionné par la création de solutions utiles… Younes est là. Construisons quelque chose de significatif."
+  },
+  "about": {
+    "intro": {
+      "title": "Salut, moi c'est Younes — Développeur Full-Stack autodidacte, designer, et créateur de solutions qui fonctionnent vraiment.",
+      "paragraphs": [
+        "J’ai tout appris seul — en commençant par CS50, il y a quatre ans, jusqu’à construire aujourd’hui des produits complets avec Django, React, React Native, Tailwind, Docker, et les outils modernes des développeurs. Je code depuis 4 ans, et je consacre les 12 derniers mois au “vibe coding” : travailler avec Claude Code, GPT5-Codex, Gemini 2.5 Pro, Cursor et VS Code pour avancer plus vite, apprendre plus intelligemment et livrer des applications plus propres.",
+        "Je suis le fondateur d’OPICOM Tech, où j’aide les écoles, entreprises et communautés à transformer leurs idées en véritables produits digitaux : sites web, applications mobiles, tableaux de bord, plateformes de données, applications desktop, et plus encore. S’il y a un problème à résoudre, je le construis.",
+        "J’apporte aussi une touche créative : je conçois mes propres logos, visuels, publicités, et je monte des vidéos pour mes clients (je ne me considère pas comme un designer professionnel, mais mes clients sont satisfaits). Je maîtrise Photoshop et Illustrator, et j’adore mélanger logique et créativité.",
+        "Chaque projet que je crée — de Ksar-Data aux sites de restaurants, systèmes scolaires, outils civiques, apps Tauri ou expériences IA — est le résultat d’une curiosité constante et d’une volonté d’apprendre et de m’adapter aux nouvelles technologies.",
+        "Si vous cherchez quelqu’un d’autodidacte, rapide, honnête, et passionné par la création de solutions utiles… Younes est là. Construisons quelque chose de significatif."
+      ]
+    },
+    "tabs": {
+      "backend": "Moi en développeur back-end",
+      "frontend": "Moi en développeur front-end",
+      "designer": "Moi en designer"
+    }
   }
 }

@@ -1,0 +1,223 @@
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Code2, LayoutPanelTop, PenTool } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { terminalCommands } from '@/data/terminal-commands';
+
+const tabConfig = [
+  { value: 'backend', icon: Code2 },
+  { value: 'frontend', icon: LayoutPanelTop },
+  { value: 'designer', icon: PenTool },
+];
+
+export default function AboutPage() {
+  const { t } = useTranslation();
+  const [active, setActive] = useState('backend');
+  const tabs = t('about.tabs', { returnObjects: true });
+
+  return (
+    <div className="space-y-12 px-1 sm:px-0">
+      <section className="w-full">
+        <div className="rounded-[30px] border border-slate-900/10 bg-white/80 p-6 shadow-2xl dark:border-white/10 dark:bg-slate-950">
+          <div className="flex flex-wrap gap-3 pb-6">
+            {tabConfig.map(({ value, icon: Icon }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setActive(value)}
+                className={cn(
+                  'flex w-full items-center justify-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition sm:w-fit sm:justify-start',
+                  active === value
+                    ? 'border-emerald-400 bg-emerald-500/10 text-emerald-600 dark:border-emerald-400/60 dark:bg-emerald-400/10 dark:text-emerald-200'
+                    : 'border-slate-300 bg-white text-slate-600 hover:border-slate-400 dark:border-white/20 dark:bg-slate-900 dark:text-slate-300'
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                {tabs[value]}
+              </button>
+            ))}
+          </div>
+          {active === 'backend' && <BackendWindow />}
+          {active === 'frontend' && <FrontendWindow />}
+          {active === 'designer' && <DesignerWindow />}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function BackendWindow() {
+  return (
+    <div className="flex min-h-[60vh] max-h-[75vh] w-full flex-col overflow-hidden rounded-xl border border-slate-900/40 bg-slate-950 text-emerald-100 shadow-inner sm:min-h-[70vh]">
+      <div className="flex items-center gap-2 rounded-t-xl border-b border-white/10 px-5 py-3 text-xs text-white/60">
+        <span className="h-3 w-3 rounded-full bg-rose-400" />
+        <span className="h-3 w-3 rounded-full bg-amber-300" />
+        <span className="h-3 w-3 rounded-full bg-emerald-400" />
+        <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.3em]">younes_terminal.sh</span>
+      </div>
+      <InteractiveTerminal />
+    </div>
+  );
+}
+
+function InteractiveTerminal() {
+  const initialEntries = [
+    { type: 'banner', text: "Welcome to Younes' terminal portfolio" },
+    { type: 'text', text: 'Type "help" to see available commands.' },
+  ];
+  const [entries, setEntries] = useState(initialEntries);
+  const [command, setCommand] = useState('');
+  const scrollRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [entries]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const runCommand = (raw) => {
+    const value = raw.trim();
+    if (!value) return;
+    const normalized = value.toLowerCase();
+
+    if (normalized === 'clear') {
+      setEntries(initialEntries);
+      return;
+    }
+
+    const commandEntry = { type: 'command', text: `visitor@younes.dev:~$ ${value}` };
+    const lookup = terminalCommands[normalized];
+
+    if (!lookup) {
+      setEntries((prev) => [...prev, commandEntry, { type: 'text', text: `Command not found: ${value}` }]);
+      return;
+    }
+
+    const responseEntries = lookup.output.map((line) => ({ type: 'text', text: line }));
+    setEntries((prev) => [...prev, commandEntry, ...responseEntries]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    runCommand(command);
+    setCommand('');
+  };
+
+  return (
+    <div className="flex flex-1 flex-col">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 font-mono leading-relaxed text-slate-200">
+        {entries.map((entry, index) => (
+          <p
+            key={`${entry.text}-${index}`}
+            className={cn(
+              'break-words whitespace-pre-wrap text-xs md:text-xl',
+              entry.type === 'banner' && 'text-emerald-300 font-semibold'
+            )}
+          >
+            {entry.text}
+          </p>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="px-3 pb-4 font-mono text-sm text-emerald-200">
+        <span className="text-emerald-400">visitor@younes.dev:~$ </span>
+        <input
+          ref={inputRef}
+          value={command}
+          onChange={(event) => setCommand(event.target.value)}
+          className="ml-2 bg-slate-950 text-emerald-200 outline-none placeholder:text-emerald-200/80 caret-emerald-200"
+          autoComplete="off"
+          aria-label="terminal input"
+        />
+      </form>
+    </div>
+  );
+}
+
+function FrontendWindow() {
+  return (
+    <div className="rounded-[24px] border border-slate-200 bg-white shadow-lg dark:border-white/10 dark:bg-slate-900">
+      <div className="flex items-center justify-between rounded-t-[24px] border-b border-slate-100 px-6 py-3 text-xs text-slate-500 dark:border-white/5 dark:text-slate-300">
+        <span>design.preview</span>
+        <div className="flex gap-2 text-[10px] uppercase tracking-[0.3em]">
+          <span>grid</span>
+          <span>components</span>
+          <span>motion</span>
+        </div>
+      </div>
+      <div className="grid gap-4 p-6 md:grid-cols-[2fr_1fr]">
+        <div className="space-y-4">
+          <div className="rounded-2xl bg-gradient-to-r from-emerald-400 to-sky-500 p-6 text-white shadow-lg">
+            <p className="text-sm uppercase tracking-[0.4em]">hero</p>
+            <h3 className="mt-3 text-2xl font-display">Portfolio UI Kit</h3>
+            <p className="mt-2 text-sm text-white/80">Responsive layout, animations, i18n.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[1, 2, 3, 4].map((card) => (
+              <div
+                key={card}
+                className="rounded-2xl border border-slate-200/70 bg-white/70 p-4 text-xs text-slate-500 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300"
+              >
+                <p className="text-slate-900 dark:text-white">Component #{card}</p>
+                <p>Variants · states · docs</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-slate-50 p-4 text-xs text-slate-600 dark:border-white/10 dark:bg-slate-900/40 dark:text-slate-200">
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">Live preview</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-inner dark:border-white/10 dark:bg-slate-800">
+            <div className="h-24 rounded-lg bg-gradient-to-tr from-amber-200 to-pink-200 dark:from-slate-700 dark:to-slate-600" />
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-inner dark:border-white/10 dark:bg-slate-800">
+            <div className="h-24 rounded-lg bg-gradient-to-tr from-sky-200 via-emerald-200 to-white dark:from-slate-700 dark:via-slate-600 dark:to-slate-500" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DesignerWindow() {
+  return (
+    <div className="rounded-[24px] border border-slate-900/10 bg-slate-50 shadow-xl dark:border-white/10 dark:bg-slate-900">
+      <div className="flex items-center gap-4 rounded-t-[24px] border-b border-slate-200 px-5 py-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-300">
+        <span className="font-semibold uppercase tracking-[0.4em]">ai workspace</span>
+        <div className="ml-auto flex gap-2">
+          <span className="rounded-full border border-slate-200 px-2 py-1 text-[10px] dark:border-white/10">brush</span>
+          <span className="rounded-full border border-slate-200 px-2 py-1 text-[10px] dark:border-white/10">type</span>
+          <span className="rounded-full border border-slate-200 px-2 py-1 text-[10px] dark:border-white/10">motion</span>
+        </div>
+      </div>
+      <div className="grid gap-5 p-6 md:grid-cols-[80px_1fr_160px]">
+        <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-white p-3 shadow dark:border-white/10 dark:bg-slate-800">
+          {[1, 2, 3, 4, 5].map((item) => (
+            <div key={item} className="h-10 rounded-xl bg-gradient-to-r from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-600" />
+          ))}
+        </div>
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/70 p-8 text-center shadow-inner dark:border-white/20 dark:bg-slate-800/60">
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Artboard</p>
+          <h3 className="mt-4 text-3xl font-display text-slate-900 dark:text-white">Logo · Poster · Identity</h3>
+          <div className="mt-6 flex items-center gap-3">
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-sky-500" />
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-amber-300 to-pink-400" />
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-600" />
+          </div>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-white p-4 text-xs text-slate-500 shadow dark:border-white/10 dark:bg-slate-800 dark:text-slate-200">
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">Layers</p>
+          {['Poster', 'Logo', 'Glow', 'Grid', 'Noise'].map((layer) => (
+            <div key={layer} className="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2 dark:border-white/10">
+              <span>{layer}</span>
+              <span className="text-slate-400">100%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

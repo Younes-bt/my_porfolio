@@ -23,8 +23,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-slate-900/10 bg-sky-500/80 backdrop-blur-xl transition-colors dark:border-white/5 dark:bg-sky-900/75">
       <div className="container relative flex h-16 items-center justify-center md:justify-between">
         <NavLink to="/" className="flex items-center justify-center md:justify-start">
-          <img src="/logo2-final copy.svg" alt="my portfolio" className="h-9 dark:hidden" />
-          <img src="/logo2-final white.svg" alt="" aria-hidden="true" className="hidden h-9 dark:block" />
+          <img src="/cube_logo.svg" alt="my portfolio" className="h-12 dark:hidden" />
+          <img src="/cube_logo_mono_white.svg" alt="" aria-hidden="true" className="hidden h-12 dark:block" />
           <span className="sr-only">Home</span>
         </NavLink>
         <nav className="hidden items-center gap-6 text-sm md:flex">

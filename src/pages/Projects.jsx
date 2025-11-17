@@ -10,7 +10,7 @@ export default function ProjectsPage() {
   const projects = t('projects.items', { returnObjects: true });
 
   return (
-    <div className="space-y-12">
+    <div className="container space-y-12">
       <div className="max-w-2xl space-y-3">
         <p className="text-sm uppercase tracking-[0.3em] text-emerald-500 dark:text-emerald-300">
           {t('projects.title')}

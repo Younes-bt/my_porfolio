@@ -138,6 +138,32 @@
       "backend": "Moi en développeur back-end",
       "frontend": "Moi en développeur front-end",
       "designer": "Moi en designer"
+    },
+    "frontendWorkbench": {
+      "title": "Boîte à outils UI",
+      "description": "Je conçois les interfaces comme des composants React réutilisables."
+    }
+  },
+  "frontend": {
+    "introTitle": "Esquisse → Interface",
+    "introText": "Chaque section de ce site démarre avec un croquis rapide. Je transforme ces idées en interfaces réactives et soignées sur desktop et mobile.",
+    "examples": {
+      "hero": {
+        "title": "Section héro",
+        "caption": "Du gabarit griffonné à un héro avec copywriting, boutons et thème."
+      },
+      "about": {
+        "title": "Section à propos",
+        "caption": "Transformer quelques puces en un bloc narratif qui reste lisible sur tous les écrans."
+      },
+      "projects": {
+        "title": "Section projets",
+        "caption": "Je dessine d'abord les cartes, puis je construis la grille filtrable réelle."
+      },
+      "contact": {
+        "title": "Section contact",
+        "caption": "Du schéma du formulaire à l'expérience de contact complète et validée."
+      }
     }
   }
 }

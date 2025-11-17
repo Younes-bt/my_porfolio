@@ -21,7 +21,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 transition-colors dark:bg-zinc-950 dark:text-white">
       <SiteHeader />
-      <main className="container flex-1 py-12 md:py-16">
+      <main className="flex-1 px-2 md:px-10 py-12 md:py-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

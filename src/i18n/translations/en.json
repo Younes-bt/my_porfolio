@@ -138,6 +138,32 @@
       "backend": "Me as a backend developer",
       "frontend": "Me as a frontend developer",
       "designer": "Me as a designer"
+    },
+    "frontendWorkbench": {
+      "title": "UI Toolkit",
+      "description": "I design interfaces as composable React components."
+    }
+  },
+  "frontend": {
+    "introTitle": "Sketch → UI",
+    "introText": "Every section of this site starts as a messy pencil sketch. I translate those quick explorations into polished, responsive UI.",
+    "examples": {
+      "hero": {
+        "title": "Hero section",
+        "caption": "From a rough grid to a hero with live copy, CTAs, and theming."
+      },
+      "about": {
+        "title": "About section",
+        "caption": "Turning bullet notes into a narrative block that adapts to every device."
+      },
+      "projects": {
+        "title": "Projects section",
+        "caption": "Sketching card variations first, then wiring the live, filterable grid."
+      },
+      "contact": {
+        "title": "Contact section",
+        "caption": "From scribbled form ideas to the final validated contact experience."
+      }
     }
   }
 }

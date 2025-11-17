@@ -10,7 +10,6 @@ const tabConfig = [
   { value: 'designer', icon: PenTool },
 ];
 
-// TODO: Replace sketch placeholders with real before/after captures
 const sketchPlaceholders = {
   hero: {
     desktopSketch: '/sketches/hero-desktop-sketch.jpg',
@@ -172,6 +171,8 @@ function InteractiveTerminal() {
 function FrontendWindow({ t }) {
   const introTitle = t('frontend.introTitle');
   const introText = t('frontend.introText');
+  const viewLabel = t('frontend.viewButton', 'View');
+  const [activeExample, setActiveExample] = useState(null);
 
   const examples = [
     {
@@ -233,19 +234,35 @@ function FrontendWindow({ t }) {
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{example.title}</h3>
               <p className="text-sm text-slate-500 dark:text-slate-300">{example.caption}</p>
             </div>
-            <div className="hidden md:block">
-              <CompareSlider device="desktop" beforeSrc={example.beforeDesktop} afterSrc={example.afterDesktop} />
+            <div className="hidden items-stretch gap-6 md:grid" style={{ gridTemplateColumns: '3fr 1fr' }}>
+              <CompareSlider device="desktop" beforeSrc={example.beforeDesktop} afterSrc={example.afterDesktop} fixedHeight />
+              <CompareSlider device="mobile" beforeSrc={example.beforeMobile} afterSrc={example.afterMobile} fixedHeight />
             </div>
-            <CompareSlider device="mobile" beforeSrc={example.beforeMobile} afterSrc={example.afterMobile} />
+            <div className="md:hidden">
+              <button
+                type="button"
+                onClick={() => setActiveExample(example)}
+                className="w-full rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-white/20 dark:text-white dark:hover:bg-white/10"
+              >
+                {viewLabel}
+              </button>
+            </div>
           </section>
         ))}
       </div>
+      {activeExample && (
+        <MobileComparisonModal
+          example={activeExample}
+          onClose={() => setActiveExample(null)}
+          viewLabel={viewLabel}
+        />
+      )}
     </div>
   );
 }
 
 
-function CompareSlider({ device, beforeSrc, afterSrc }) {
+function CompareSlider({ device, beforeSrc, afterSrc, fixedHeight = false }) {
   const sliderRef = useRef(null);
   const [percent, setPercent] = useState(60);
   const isDesktop = device === 'desktop';
@@ -273,8 +290,12 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
   const sliderCore = (
     <div
       ref={sliderRef}
-      className="relative select-none w-full"
-      style={{ aspectRatio: isDesktop ? '16 / 9' : '9 / 16' }}
+      className="relative w-full select-none"
+      style={
+        fixedHeight
+          ? { height: isDesktop ? 700 : 750 }
+          : { aspectRatio: isDesktop ? '16 / 9' : '9 / 16' }
+      }
     >
       <img
         src={afterSrc}
@@ -321,14 +342,57 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
   );
 }
 
+function MobileComparisonModal({ example, onClose }) {
+  useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [onClose]);
+
+  if (!example) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-slate-950/95 md:hidden" onClick={onClose}>
+      <div className="flex h-full flex-col">
+        <div className="flex items-center justify-between px-4 py-3 text-white">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-emerald-400">Sketch → UI</p>
+            <h3 className="text-base font-semibold">{example.title}</h3>
+          </div>
+          <button
+            type="button"
+            className="rounded-full border border-white/30 px-3 py-1 text-xs uppercase tracking-[0.2em]"
+            onClick={(event) => {
+              event.stopPropagation();
+              onClose();
+            }}
+          >
+            Close
+          </button>
+        </div>
+        <div
+          className="flex-1"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <CompareSlider device="mobile" beforeSrc={example.beforeMobile} afterSrc={example.afterMobile} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FakeBrowserFrame({ children, variant = 'browser' }) {
   if (variant === 'phone') {
     return (
-      <div className="mx-auto w-max rounded-[34px] border border-slate-200/70 bg-slate-50 p-4 shadow-inner dark:border-white/15 dark:bg-slate-900/50">
-        <div className="mx-auto mb-3 h-1.5 w-14 rounded-full bg-slate-300 dark:bg-white/20" />
-        <div className="rounded-[26px] border border-slate-200 bg-white p-3 shadow-lg dark:border-white/15 dark:bg-slate-950">
-          {children}
-        </div>
+      <div className="rounded-[28px] border border-slate-200 bg-white shadow-lg dark:border-white/15 dark:bg-slate-950">
+        {children}
       </div>
     );
   }

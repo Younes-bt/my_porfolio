@@ -20,7 +20,121 @@
       },
       "role": "مطور برمجيات ومصمم جرافيك بدافع الشغف.",
       "hireCta": "تواصل للعمل معي"
-    }
+    },
+    "terminal": [
+      {
+        "tokens": [
+          {
+            "text": "$ مرحباً...",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ لقد وصلت للتو إلى معرض أعمالي.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ تتساءل من أنا وماذا أستطيع أن أفعل؟",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ...حسناً",
+            "className": "text-pink-400"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ أنا ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "يونس",
+            "className": "text-emerald-300 font-semibold"
+          },
+          {
+            "text": " -> مطور فول ستاك,",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ومصمم جرافيك من باب المتعة.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ يمكنك فتح سيرتي الذاتية الكاملة هنا:",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ السيرة الذاتية ]",
+            "className": "text-amber-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ أو الانتقال مباشرة إلى مشاريعي هنا:",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ المشاريع ]",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ التركيز_الحالي: بناء أدوات تعليمية وcivic-tech في المغرب.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ _",
+            "className": "text-slate-500"
+          }
+        ]
+      }
+    ]
   },
   "stats": [
     {
@@ -164,6 +278,7 @@
         "title": "قسم التواصل",
         "caption": "من مخطط نموذج بسيط إلى تجربة تواصل كاملة مع التحقق والرسائل."
       }
-    }
+    },
+    "viewButton": "عرض"
   }
 }

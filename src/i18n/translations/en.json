@@ -20,7 +20,129 @@
       },
       "role": "Full stack developer and Graphic Designer for FUN.",
       "hireCta": "Hire Me"
-    }
+    },
+    "terminal": [
+      {
+        "tokens": [
+          {
+            "text": "$ welcome...",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ you just reached my ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "portfolio",
+            "className": "text-amber-300"
+          },
+          {
+            "text": ".",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ wondering who I am and what I can do?",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ...well",
+            "className": "text-pink-400"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ I'm ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "younes",
+            "className": "text-emerald-300 font-semibold"
+          },
+          {
+            "text": " -> full-stack developer,",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ and graphic designer for fun.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ you can open my full resume here:",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ resume ]",
+            "className": "text-amber-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ or jump directly to my projects here:",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ projects ]",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ current_focus: building school & civic-tech tools in Morocco.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ _",
+            "className": "text-slate-500"
+          }
+        ]
+      }
+    ]
   },
   "stats": [
     {
@@ -164,6 +286,7 @@
         "title": "Contact section",
         "caption": "From scribbled form ideas to the final validated contact experience."
       }
-    }
+    },
+    "viewButton": "View"
   }
 }

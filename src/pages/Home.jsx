@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Reveal } from '@/components/motion/reveal';
 import { cn } from '@/lib/utils';
 
-const terminalScript = [
+const defaultTerminalScript = [
   { tokens: [{ text: '$ welcome...', className: 'text-emerald-300' }] },
   {
     tokens: [
@@ -62,6 +62,8 @@ const terminalScript = [
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const translatedTerminal = t('hero.terminal', { returnObjects: true });
+  const terminalScript = Array.isArray(translatedTerminal) && translatedTerminal.length > 0 ? translatedTerminal : defaultTerminalScript;
   const story = t('story', { returnObjects: true });
 
   return (
@@ -80,7 +82,7 @@ export default function HomePage() {
               <span className="h-3 w-3 rounded-full bg-emerald-400" />
               <p className="ml-auto font-mono text-xs text-slate-400">portfolio.sh</p>
             </div>
-            <TerminalTyping />
+            <TerminalTyping script={terminalScript} />
             <div className="absolute -right-8 top-1/2 hidden -translate-y-1/2 items-center gap-2 text-slate-300 lg:flex">
               <span className="h-px w-10 bg-slate-400/60" />
               <ArrowRight className="h-4 w-4 text-emerald-400" />
@@ -176,12 +178,12 @@ export default function HomePage() {
   );
 }
 
-function TerminalTyping() {
+function TerminalTyping({ script = defaultTerminalScript }) {
   const [visibleChars, setVisibleChars] = useState(0);
 
   const lineMetrics = useMemo(() => {
     let offset = 0;
-    return terminalScript.map((line) => {
+    return script.map((line) => {
       let tokenOffset = 0;
       const tokenOffsets = line.tokens.map((token) => {
         const current = tokenOffset;
@@ -193,7 +195,7 @@ function TerminalTyping() {
       offset += length + 1; // add a slight pause between lines
       return meta;
     });
-  }, []);
+  }, [script]);
 
   const totalChars =
     lineMetrics.length > 0
@@ -218,7 +220,7 @@ function TerminalTyping() {
 
   return (
     <div className="space-y-2 px-4 py-5 font-mono text-sm leading-relaxed text-slate-300 sm:px-6 sm:py-6">
-      {terminalScript.map((line, lineIndex) => {
+      {script.map((line, lineIndex) => {
         const metrics = lineMetrics[lineIndex];
         const visibleInLine = metrics
           ? Math.min(Math.max(visibleChars - metrics.offset, 0), metrics.length)

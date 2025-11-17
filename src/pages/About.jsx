@@ -76,8 +76,8 @@ export default function AboutPage() {
 
 function BackendWindow() {
   return (
-    <div className="flex min-h-[60vh] max-h-[75vh] w-full flex-col overflow-hidden rounded-xl border border-slate-900/40 bg-slate-950 text-emerald-100 shadow-inner sm:min-h-[70vh]">
-      <div className="flex items-center gap-2 rounded-t-xl border-b border-white/10 px-0 py-3 text-xs text-white/60">
+    <div className="flex min-h-[60vh] max-h-[75vh] w-full flex-col overflow-hidden rounded-xl border border-slate-500/40 bg-zinc-950 text-emerald-100 shadow-inner sm:min-h-[70vh]">
+      <div className="flex items-center gap-2 rounded-t-xl border-b border-white/10 px-4 py-3 text-xs text-white/60">
         <span className="h-3 w-3 rounded-full bg-rose-400" />
         <span className="h-3 w-3 rounded-full bg-amber-300" />
         <span className="h-3 w-3 rounded-full bg-emerald-400" />
@@ -143,7 +143,7 @@ function InteractiveTerminal() {
           <p
             key={`${entry.text}-${index}`}
             className={cn(
-              'break-words whitespace-pre-wrap text-xs md:text-xl',
+              'break-words whitespace-pre-wrap text-xs md:text-lg',
               entry.type === 'banner' && 'text-emerald-300 font-semibold'
             )}
           >
@@ -157,7 +157,7 @@ function InteractiveTerminal() {
           ref={inputRef}
           value={command}
           onChange={(event) => setCommand(event.target.value)}
-          className="ml-2 bg-slate-950 text-emerald-200 outline-none placeholder:text-emerald-200/80 caret-emerald-200"
+          className="ml-2 bg-zinc-950 text-emerald-200 outline-none placeholder:text-emerald-200/80 caret-emerald-200"
           autoComplete="off"
           aria-label="terminal input"
         />
@@ -215,7 +215,7 @@ function FrontendWindow({ t }) {
 
   return (
     <div className="rounded-[24px] border border-slate-200 bg-white/80 shadow-xl shadow-slate-900/10 dark:border-white/10 dark:bg-slate-900/70 dark:text-white sm:mx-0 -mx-6 sm:p-4 p-2">
-      <div className="flex items-center gap-2 rounded-t-[24px] border-b border-slate-200/70 px-3 py-3 text-xs uppercase tracking-[0.3em] text-slate-500 dark:border-white/10 dark:text-slate-300 sm:px-6">
+      <div className="flex items-center gap-2 rounded-t-[24px] border-b border-slate-950 px-3 py-3 text-xs uppercase tracking-[0.3em] text-slate-500 dark:border-white/10 dark:text-slate-300 sm:px-6">
         <span className="flex items-center gap-1">
           <span className="h-3 w-3 rounded-full bg-rose-400" />
           <span className="h-3 w-3 rounded-full bg-amber-300" />
@@ -242,7 +242,7 @@ function FrontendWindow({ t }) {
               <button
                 type="button"
                 onClick={() => setActiveExample(example)}
-                className="w-full rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-white/20 dark:text-white dark:hover:bg-white/10"
+                className="w-full rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-white/20 dark:text-white bg-sky-300 dark:bg-sky-950 dark:hover:bg-white/10"
               >
                 {viewLabel}
               </button>
@@ -398,8 +398,8 @@ function FakeBrowserFrame({ children, variant = 'browser' }) {
   }
 
   return (
-    <div className="rounded-[28px] border border-slate-200/80 bg-white/60 shadow-inner dark:border-white/10 dark:bg-slate-900/50">
-      <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-slate-400 dark:border-white/10 dark:text-slate-500">
+    <div className="rounded-[28px] border border-slate-500/80 bg-white/60 shadow-inner dark:border-white/10 dark:bg-slate-900/50">
+      <div className="flex items-center gap-2 border-b border-slate-500 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-slate-400 dark:border-white/10 dark:text-slate-500">
         <span className="flex items-center gap-1">
           <span className="h-3 w-3 rounded-full bg-rose-400" />
           <span className="h-3 w-3 rounded-full bg-amber-300" />

@@ -80,8 +80,10 @@ export function SiteHeader() {
                 {t(`nav.${item.key}`)}
               </NavLink>
             ))}
-            <LanguageToggle orientation="vertical" />
-            <ModeToggle size="default" className="w-full justify-between" />
+            <div className="flex flex-wrap items-center gap-3">
+              <LanguageToggle />
+              <ModeToggle size="icon" />
+            </div>
             <Button variant="secondary" className="w-full" asChild>
               <NavLink to="/contact" onClick={() => setOpen(false)}>
                 {t('hero.secondaryCta')}

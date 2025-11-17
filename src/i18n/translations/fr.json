@@ -20,7 +20,129 @@
       },
       "role": "Développeur full stack et designer graphique par passion.",
       "hireCta": "Engagez-moi"
-    }
+    },
+    "terminal": [
+      {
+        "tokens": [
+          {
+            "text": "$ bienvenue...",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ tu viens d'atteindre mon ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "portfolio",
+            "className": "text-amber-300"
+          },
+          {
+            "text": ".",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ tu te demandes qui je suis et ce que je peux faire ?",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ...eh bien",
+            "className": "text-pink-400"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ je suis ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "younes",
+            "className": "text-emerald-300 font-semibold"
+          },
+          {
+            "text": " -> développeur full-stack,",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ et designer graphique pour le fun.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ tu peux ouvrir mon CV complet ici :",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ cv ]",
+            "className": "text-amber-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ou aller directement à mes projets ici :",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ ",
+            "className": "text-slate-300"
+          },
+          {
+            "text": "[ projets ]",
+            "className": "text-emerald-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ focus_actuel : construire des outils éducatifs et civic-tech au Maroc.",
+            "className": "text-slate-300"
+          }
+        ]
+      },
+      {
+        "tokens": [
+          {
+            "text": "$ _",
+            "className": "text-slate-500"
+          }
+        ]
+      }
+    ]
   },
   "stats": [
     {
@@ -164,6 +286,7 @@
         "title": "Section contact",
         "caption": "Du schéma du formulaire à l'expérience de contact complète et validée."
       }
-    }
+    },
+    "viewButton": "Voir"
   }
 }

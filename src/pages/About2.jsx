@@ -1,27 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { 
-  Code2, 
-  LayoutPanelTop, 
-  PenTool, 
-  Terminal, 
-  Cpu, 
-  Wifi, 
-  Smartphone, 
-  Monitor, 
-  Layers, 
-  Palette,
-  Maximize2,
-  Minimize2,
-  Move
+  Code2, LayoutPanelTop, PenTool, Terminal, Wifi, Smartphone, Monitor, 
+  Layers, Palette, Move, Cpu, Zap, Box, Grid, Maximize, Scan, Sliders
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-// Assuming this path exists based on your previous file. 
-// If not, the terminal will fallback gracefully.
 import { terminalCommands } from '@/data/terminal-commands';
 
-// --- CONFIGURATION ---
+// --- 1. CONFIGURATION & DATA ---
+
 const tabConfig = [
   { value: 'backend', icon: Code2, label: 'System Core' },
   { value: 'frontend', icon: LayoutPanelTop, label: 'UI Architecture' },
@@ -41,8 +29,40 @@ const sketchPlaceholders = {
     mobileSketch: '/sketches/about-mobile-sketch.jpg',
     mobileFinal: '/sketches/about-mobile.jpg',
   },
-  // Add others as needed...
 };
+
+/* --- LOGO LAYERS DATA (Split by Z-Depth) --- */
+// I grouped your paths. 
+// Bottom layer = The base legs. 
+// Middle layer = The middle chevron. 
+// Top layer = The top diamond/chevron.
+const logoLayers = [
+  { 
+    id: 'base',
+    z: 20, // Depth
+    paths: [
+      "M367.08,584.05l-130.93-75.59c-5.06-2.92-8.18-8.32-8.18-14.17V361.96c0-5.85-3.12-11.25-8.18-14.17 L154.31,310c-10.91-6.3-24.54,1.58-24.54,14.17v226.79c0,5.85,3.12,11.25,8.18,14.17l245.49,141.72c5.06,2.92,8.18,8.32,8.18,14.17 v0.01c0,12.59-13.63,20.47-24.54,14.17L154.31,612.42c-10.91-6.29-24.54,1.58-24.54,14.17v75.52c0,5.84,3.12,11.25,8.18,14.17 l327.32,189.01c10.91,6.3,24.54-1.57,24.54-14.17V513.19c0-5.84-3.12-11.24-8.17-14.17l-65.47-37.84 c-10.91-6.3-24.55,1.57-24.55,14.17v94.52C391.62,582.47,377.98,590.34,367.08,584.05z",
+      "M522.54,513.19v377.93c0,12.6,13.64,20.47,24.54,14.17l327.32-189.01c5.06-2.92,8.18-8.32,8.18-14.17V324.18 c0-12.6-13.64-20.47-24.54-14.17L530.72,499.03C525.66,501.95,522.54,507.35,522.54,513.19z M784.39,645.44v0.02 c0,5.85-3.12,11.25-8.18,14.17L645.28,735.2c-10.91,6.3-24.54-1.58-24.54-14.17v-0.01c0-5.85,3.12-11.25,8.18-14.17l130.93-75.59 C770.76,624.97,784.39,632.84,784.39,645.44z M784.39,494.28L784.39,494.28c0,5.85-3.12,11.25-8.18,14.17l-130.93,75.59 c-10.91,6.3-24.54-1.57-24.54-14.17v-0.02c0-5.85,3.12-11.25,8.18-14.17l130.93-75.57C770.76,473.82,784.39,481.69,784.39,494.28z"
+    ]
+  },
+  {
+    id: 'mid',
+    z: 50,
+    paths: [
+      "M759.85,215.58L514.36,357.27c-5.06,2.92-11.3,2.92-16.36,0L252.51,215.58c-5.06-2.92-11.3-2.92-16.36,0 l-65.44,37.77c-10.91,6.3-10.91,22.04,0,28.34l327.29,189c5.06,2.92,11.3,2.92,16.36,0l327.29-189c10.91-6.3,10.91-22.04,0-28.34 l-65.44-37.77C771.14,212.66,764.91,212.66,759.85,215.58z"
+    ]
+  },
+  {
+    id: 'top',
+    z: 80,
+    paths: [
+      "M579.85,102.21l-65.49-37.85c-5.07-2.93-11.31-2.93-16.38,0l-65.49,37.85c-10.9,6.3-10.9,22.05,0.01,28.34 L498,168.32c5.06,2.92,11.29,2.92,16.35,0l65.49-37.78C590.75,124.25,590.76,108.51,579.85,102.21z",
+      "M710.75,177.71l-65.47-37.76c-5.06-2.92-11.3-2.92-16.36,0l-114.56,66.16c-5.06,2.92-11.3,2.92-16.36,0 l-114.56-66.16c-5.06-2.92-11.3-2.92-16.36,0l-65.47,37.76c-10.91,6.29-10.92,22.04-0.01,28.34L498,319.45 c5.06,2.92,11.3,2.92,16.36,0l196.4-113.39C721.66,199.75,721.66,184,710.75,177.71z"
+    ]
+  }
+];
+
+// --- 2. MAIN COMPONENT ---
 
 export default function AboutPage() {
   const { t } = useTranslation();
@@ -50,9 +70,8 @@ export default function AboutPage() {
   const tabs = t('about.tabs', { returnObjects: true }) || {};
 
   return (
-    <div className="min-h-screen w-full space-y-8 px-2 py-8 sm:px-4 md:py-12">
-      
-      {/* --- HEADER & NAVIGATION --- */}
+    <div className="min-h-screen w-full space-y-8 px-4 py-8 md:py-12">
+      {/* HEADER */}
       <section className="mx-auto max-w-5xl space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
@@ -66,7 +85,7 @@ export default function AboutPage() {
         {/* Floating Tab Bar */}
         <div className="flex justify-center">
           <div className="flex items-center gap-1 rounded-full border border-slate-200 bg-white/50 p-1 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/50">
-            {tabConfig.map(({ value, icon: Icon }) => (
+            {tabConfig.map(({ value, icon: Icon, label }) => (
               <button
                 key={value}
                 onClick={() => setActive(value)}
@@ -86,7 +105,7 @@ export default function AboutPage() {
                 )}
                 <span className="relative z-10 flex items-center gap-2">
                   <Icon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{tabs[value] || value}</span>
+                  <span className="hidden sm:inline">{tabs[value] || label}</span>
                 </span>
               </button>
             ))}
@@ -94,7 +113,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- CONTENT AREA --- */}
+      {/* CONTENT AREA */}
       <section className="mx-auto max-w-6xl">
         <AnimatePresence mode="wait">
           <motion.div
@@ -103,10 +122,10 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.98 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden"
+            className="w-full"
           >
             {active === 'backend' && <BackendWindow />}
-            {active === 'frontend' && <FrontendWindow t={t} />}
+            {active === 'frontend' && <FrontendWindow />}
             {active === 'designer' && <DesignerWindow />}
           </motion.div>
         </AnimatePresence>
@@ -121,19 +140,21 @@ export default function AboutPage() {
 
 function BackendWindow() {
   return (
-    <div className="grid h-[600px] w-full overflow-hidden rounded-2xl border border-slate-800 bg-[#0c0c0c] shadow-2xl md:grid-cols-[240px_1fr] md:h-[65vh]">
-      {/* Sidebar Stats (Decorative) */}
-      <div className="hidden h-full flex-col border-r border-white/10 bg-white/5 p-4 md:flex">
-        <div className="space-y-6">
+    <div className="grid h-[600px] w-full overflow-hidden rounded-2xl border border-slate-800 bg-[#0c0c0c] shadow-2xl md:h-[65vh] md:grid-cols-[240px_1fr]">
+      {/* Sidebar Stats (Decorative - Hidden on Mobile) */}
+      <div className="hidden h-full flex-col border-r border-white/10 bg-white/5 p-5 md:flex">
+        <div className="space-y-8">
+          {/* Header */}
           <div className="flex items-center gap-2 text-emerald-400">
             <Terminal size={18} />
             <span className="font-mono text-xs font-bold tracking-widest">SYSTEM_ROOT</span>
           </div>
           
-          <div className="space-y-4 font-mono text-[10px] text-slate-400">
-            <div className="space-y-1">
+          {/* Stats */}
+          <div className="space-y-6 font-mono text-[10px] text-slate-400">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span>CPU_USAGE</span>
+                <span className="flex items-center gap-2"><Cpu size={12}/> CPU</span>
                 <span className="text-emerald-500">12%</span>
               </div>
               <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
@@ -145,9 +166,9 @@ function BackendWindow() {
               </div>
             </div>
             
-            <div className="space-y-1">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span>MEMORY</span>
+                <span className="flex items-center gap-2"><Zap size={12}/> RAM</span>
                 <span className="text-amber-500">424MB</span>
               </div>
               <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
@@ -156,25 +177,33 @@ function BackendWindow() {
             </div>
 
             <div className="pt-4">
-               <p className="mb-2 text-xs font-bold text-slate-300">Active Processes:</p>
-               <ul className="space-y-2">
+               <p className="mb-3 text-xs font-bold text-slate-300">PROCESSES:</p>
+               <ul className="space-y-3">
                  <li className="flex items-center gap-2 text-emerald-300/80">
                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                   node_server
+                   node_server <span className="ml-auto opacity-50">PID: 402</span>
                  </li>
                  <li className="flex items-center gap-2 text-slate-500">
                    <div className="h-1.5 w-1.5 rounded-full bg-slate-600" />
-                   docker_daemon
+                   docker_daemon <span className="ml-auto opacity-50">PID: 119</span>
+                 </li>
+                 <li className="flex items-center gap-2 text-slate-500">
+                   <div className="h-1.5 w-1.5 rounded-full bg-slate-600" />
+                   postgres_worker <span className="ml-auto opacity-50">PID: 882</span>
                  </li>
                </ul>
             </div>
           </div>
         </div>
+        
+        <div className="mt-auto font-mono text-[10px] text-slate-600">
+          Uptime: 14d 2h 12m
+        </div>
       </div>
 
-      {/* Terminal Area - FIXED HEIGHT & SCROLLING FIX */}
-      <div className="relative flex h-full flex-col bg-[#0A0A0A] overflow-hidden">
-        {/* Header */}
+      {/* Terminal Area - Fixed Height & Scrolling */}
+      <div className="relative flex h-full flex-col overflow-hidden bg-[#0A0A0A]">
+        {/* Terminal Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-white/5 px-4 py-2">
           <div className="flex gap-1.5">
             <div className="h-3 w-3 rounded-full bg-rose-500/80" />
@@ -190,6 +219,7 @@ function BackendWindow() {
         {/* CRT Scanline Overlay */}
         <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-20" />
 
+        {/* Interactive Content */}
         <InteractiveTerminal />
       </div>
     </div>
@@ -207,7 +237,7 @@ function InteractiveTerminal() {
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Auto-scroll to bottom when entries change
+  // Auto-scroll to bottom
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -226,7 +256,7 @@ function InteractiveTerminal() {
 
     const commandEntry = { type: 'command', text: `guest@portfolio:~$ ${value}` };
     
-    // Safe lookup
+    // Logic to look up commands
     const lookup = terminalCommands ? terminalCommands[normalized] : null;
 
     let responseEntries;
@@ -247,7 +277,7 @@ function InteractiveTerminal() {
 
   return (
     <div 
-      className="relative z-0 flex h-full flex-col p-4 font-mono text-sm md:text-base overflow-hidden" 
+      className="relative z-0 flex h-full flex-col overflow-hidden p-4 font-mono text-sm md:text-base" 
       onClick={() => inputRef.current?.focus()}
     >
       {/* Scrollable Area */}
@@ -257,12 +287,12 @@ function InteractiveTerminal() {
       >
         {entries.map((entry, index) => (
           <div key={index} className="mb-1">
-            <p className={cn(
+             <p className={cn(
               'break-words',
               entry.type === 'banner' && 'text-emerald-400 font-bold mb-4 text-lg',
               entry.type === 'command' && 'text-slate-400 mt-4',
               entry.type === 'error' && 'text-rose-400',
-              entry.type === 'text' && 'text-slate-200 leading-relaxed'
+              entry.type === 'text' && 'text-slate-200 leading-relaxed whitespace-pre-wrap'
             )}>
               {entry.text}
             </p>
@@ -270,7 +300,7 @@ function InteractiveTerminal() {
         ))}
       </div>
 
-      {/* Input Area (Fixed at bottom) */}
+      {/* Input Area (Fixed) */}
       <form onSubmit={handleSubmit} className="mt-2 flex shrink-0 items-center border-t border-white/5 pt-2">
         <span className="mr-2 text-emerald-500">guest@portfolio:~$</span>
         <input
@@ -292,19 +322,19 @@ function InteractiveTerminal() {
 /*                           2. FRONTEND (SLIDER)                             */
 /* -------------------------------------------------------------------------- */
 
-function FrontendWindow({ t }) {
+function FrontendWindow() {
   const [activeDevice, setActiveDevice] = useState('desktop');
   
-  // Default example
+  // Use provided sketches or fallback to placeholders for demo
   const heroExample = sketchPlaceholders.hero || {
-    desktopSketch: "/api/placeholder/1920/1080",
-    desktopFinal: "/api/placeholder/1920/1080",
-    mobileSketch: "/api/placeholder/375/812",
-    mobileFinal: "/api/placeholder/375/812"
+    desktopSketch: "/sketches/hero-desktop-sketch.jpg",
+    desktopFinal: "/sketches/hero-desktop.jpg",
+    mobileSketch: "/sketches/hero-mobile-sketch.jpg",
+    mobileFinal: "/sketches/hero-mobile.jpg"
   };
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-slate-50/50 p-6 shadow-xl backdrop-blur-sm dark:border-white/5 dark:bg-slate-900/50">
+    <div className="rounded-3xl border border-slate-200 bg-slate-50/50 p-4 shadow-xl backdrop-blur-sm dark:border-white/5 dark:bg-slate-900/50 sm:p-6">
       
       {/* Controls Header */}
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
@@ -312,7 +342,7 @@ function FrontendWindow({ t }) {
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">UI Compilation Process</h2>
           <p className="text-sm text-slate-500">Drag slider to compare Wireframe vs. Production.</p>
         </div>
-        <div className="flex rounded-lg border border-slate-200 bg-white p-1 dark:border-white/10 dark:bg-slate-950">
+        <div className="flex self-start rounded-lg border border-slate-200 bg-white p-1 dark:border-white/10 dark:bg-slate-950 sm:self-center">
           <button
             onClick={() => setActiveDevice('desktop')}
             className={cn(
@@ -367,14 +397,16 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
     <motion.div 
       layout
       className={cn(
-        "relative select-none overflow-hidden shadow-2xl",
-        isDesktop ? "aspect-video w-full max-w-3xl rounded-lg" : "aspect-[9/19.5] w-full max-w-[320px] rounded-[2.5rem] border-4 border-slate-800 dark:border-slate-700"
+        "relative select-none overflow-hidden shadow-2xl bg-slate-200 dark:bg-slate-800",
+        isDesktop 
+          ? "aspect-video w-full max-w-3xl rounded-lg" 
+          : "aspect-[9/19.5] w-full max-w-[320px] rounded-[2.5rem] border-4 border-slate-800 dark:border-slate-700"
       )}
       ref={sliderRef}
       onMouseMove={handleInteraction}
       onTouchMove={handleInteraction}
     >
-      {/* AFTER IMAGE (Background) */}
+      {/* AFTER IMAGE (Background - Production) */}
       <img src={afterSrc} alt="Final" className="absolute inset-0 h-full w-full object-cover" draggable="false" />
       
       {/* LABEL (Production) */}
@@ -382,7 +414,7 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
         Rendered
       </div>
 
-      {/* BEFORE IMAGE (Clipped) */}
+      {/* BEFORE IMAGE (Clipped - Sketch) */}
       <div 
         className="absolute inset-0"
         style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}
@@ -408,103 +440,225 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
     </motion.div>
   );
 }
-
 /* -------------------------------------------------------------------------- */
-/*                           3. DESIGNER (AI WORKSPACE)                       */
+/*                   5. DESIGNER WINDOW (THE HOLOGRAPHIC LAB)                 */
 /* -------------------------------------------------------------------------- */
 
 function DesignerWindow() {
+  const [spread, setSpread] = useState(0); 
+  const [wireframe, setWireframe] = useState(false);
+  const [glow, setGlow] = useState(true);
+  
   return (
-    <div className="relative h-[70vh] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-xl dark:border-slate-700 dark:bg-[#1e1e1e]">
-      {/* Dot Grid Background */}
-      <div className="absolute inset-0 opacity-20" 
-        style={{ 
-          backgroundImage: 'radial-gradient(#64748b 1px, transparent 1px)', 
-          backgroundSize: '20px 20px' 
-        }} 
-      />
-
-      {/* Top Toolbar */}
-      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white px-4 py-2 shadow-sm dark:border-slate-700 dark:bg-[#252525]">
-        <div className="flex items-center gap-4">
-           <div className="flex gap-1">
-              <div className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-600" />
-              <div className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-600" />
-           </div>
-           <div className="text-xs font-medium text-slate-500">Untitled_Design_v04.fig</div>
+    // FIX 1: Changed h-[600px] to h-auto lg:h-[600px]. 
+    // This lets it scroll on mobile but stays fixed on desktop.
+    <div className="relative flex h-auto w-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-xl dark:border-slate-700 dark:bg-[#050505] lg:h-[600px] lg:flex-row">
+      
+      {/* --- LEFT: CONTROL PANEL --- */}
+      <div className="z-20 flex w-full flex-col border-b border-slate-200 bg-white/80 backdrop-blur p-6 dark:border-slate-800 dark:bg-[#0A0A0A]/90 lg:w-80 lg:border-b-0 lg:border-r">
+        
+        <div className="mb-6 lg:mb-8">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-emerald-500">
+            <Scan size={14} /> Visual Engine
+          </div>
+          <h3 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">Logo Lab</h3>
+          <p className="text-xs text-slate-500 mt-1">Interact with the brand identity in 3D space.</p>
         </div>
-        <div className="flex gap-2 text-slate-400">
-          <span className="text-xs">100%</span>
-          <Minimize2 size={14} />
+
+        <div className="space-y-6 lg:space-y-8">
+          
+          {/* Slider */}
+          <div className="space-y-3">
+            <div className="flex justify-between text-xs font-medium text-slate-600 dark:text-slate-300">
+              <span className="flex items-center gap-2"><Layers size={12} /> Explosion Factor</span>
+              <span className="font-mono text-emerald-500">{spread}%</span>
+            </div>
+            <input 
+              type="range" 
+              min="0" 
+              max="100" 
+              value={spread} 
+              onChange={(e) => setSpread(parseInt(e.target.value))}
+              className="h-1.5 w-full appearance-none rounded-full bg-slate-200 outline-none dark:bg-slate-800 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-emerald-500 [&::-webkit-slider-thumb]:transition-all hover:[&::-webkit-slider-thumb]:scale-110"
+            />
+          </div>
+
+          {/* Toggles */}
+          <div className="space-y-3">
+             <label className="text-xs font-medium uppercase text-slate-400 tracking-wider">Render Modes</label>
+             
+             <button 
+                onClick={() => setWireframe(!wireframe)}
+                className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white p-3 transition-all hover:border-emerald-500 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-500"
+             >
+               <span className="flex items-center gap-2 text-sm font-medium dark:text-slate-200">
+                 <Grid size={14} /> Wireframe
+               </span>
+               <div className={cn("h-4 w-8 rounded-full p-0.5 transition-colors", wireframe ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700")}>
+                 <motion.div animate={{ x: wireframe ? 16 : 0 }} className="h-3 w-3 rounded-full bg-white shadow-sm" />
+               </div>
+             </button>
+
+             <button 
+                onClick={() => setGlow(!glow)}
+                className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white p-3 transition-all hover:border-emerald-500 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-500"
+             >
+               <span className="flex items-center gap-2 text-sm font-medium dark:text-slate-200">
+                 <Zap size={14} /> Neon Bloom
+               </span>
+               <div className={cn("h-4 w-8 rounded-full p-0.5 transition-colors", glow ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700")}>
+                 <motion.div animate={{ x: glow ? 16 : 0 }} className="h-3 w-3 rounded-full bg-white shadow-sm" />
+               </div>
+             </button>
+          </div>
+
+          {/* Code Output (Hidden on very small screens to save space) */}
+          <div className="hidden rounded-lg border border-slate-200 bg-slate-100 p-4 font-mono text-[10px] text-slate-500 dark:border-slate-800 dark:bg-black sm:block">
+             <div className="mb-2 border-b border-slate-300 pb-2 dark:border-slate-700"> transform-style: preserve-3d; </div>
+             <div className="opacity-70">
+               translateZ({spread * 2}px); <br/>
+               rotateX(<span className="text-emerald-500">dynamic</span>); <br/>
+               rotateY(<span className="text-emerald-500">dynamic</span>); <br/>
+               {wireframe ? 'stroke: current;' : 'fill: current;'}
+             </div>
+          </div>
+
         </div>
       </div>
 
-      {/* Left Floating Tools */}
-      <motion.div 
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        className="absolute left-4 top-16 flex flex-col gap-2 rounded-lg border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-600 dark:bg-[#252525]"
-      >
-        {[Move, Layers, Palette, PenTool].map((Icon, i) => (
-          <div key={i} className={cn("rounded p-2 hover:bg-slate-100 dark:hover:bg-slate-700", i===0 && "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400")}>
-            <Icon size={18} />
-          </div>
-        ))}
-      </motion.div>
+      {/* --- RIGHT: HOLOGRAPHIC CANVAS --- */}
+      <div className="relative flex min-h-[350px] flex-1 items-center justify-center overflow-hidden bg-slate-50 p-4 dark:bg-[#050505] lg:min-h-0">
+        
+        <div 
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.1]" 
+          style={{ 
+            backgroundImage: 'linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px)', 
+            backgroundSize: '60px 60px' 
+          }} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-100/50 dark:to-[#050505]" />
 
-      {/* Right Properties Panel */}
-      <motion.div 
-        initial={{ x: 50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        className="absolute bottom-4 right-4 top-16 w-48 rounded-lg border border-slate-200 bg-white p-4 shadow-lg dark:border-slate-600 dark:bg-[#252525]"
-      >
-        <div className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">Properties</div>
-        <div className="space-y-3">
-            <div className="h-2 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
-            <div className="h-8 w-full rounded border border-slate-200 dark:border-slate-600" />
-            <div className="h-2 w-3/4 rounded bg-slate-200 dark:bg-slate-700" />
-            <div className="grid grid-cols-2 gap-2">
-              <div className="h-8 rounded bg-slate-100 dark:bg-slate-700" />
-              <div className="h-8 rounded bg-slate-100 dark:bg-slate-700" />
-            </div>
+        <HolographicLogo spread={spread} wireframe={wireframe} glow={glow} />
+
+        <div className="pointer-events-none absolute bottom-6 text-[10px] font-medium uppercase tracking-[0.3em] text-slate-400 opacity-50">
+          Interactive Preview
         </div>
-      </motion.div>
-
-      {/* Center Artboard (Parallax Effect) */}
-      <div className="flex h-full w-full items-center justify-center">
-        <motion.div 
-          whileHover={{ scale: 1.02, rotateX: 5, rotateY: 5 }}
-          className="relative h-96 w-80 bg-white p-8 shadow-2xl dark:bg-[#111]"
-          style={{ perspective: 1000 }}
-        >
-          <div className="absolute -inset-4 -z-10 rounded-xl bg-gradient-to-br from-emerald-400/30 to-blue-500/30 blur-xl" />
-          
-          {/* Mock UI Content */}
-          <div className="space-y-6">
-             <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-emerald-400 to-blue-500" />
-             <div className="space-y-2">
-               <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-slate-800" />
-               <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-800" />
-             </div>
-             <div className="grid grid-cols-2 gap-4">
-               <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800" />
-               <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800" />
-             </div>
-          </div>
-
-          {/* Floating Cursor */}
-          <motion.div 
-            animate={{ x: [0, 100, 50, 0], y: [0, 50, 100, 0] }}
-            transition={{ duration: 10, repeat: Infinity }}
-            className="absolute z-20"
-          >
-            <Move className="h-6 w-6 -rotate-90 fill-rose-500 text-rose-500 drop-shadow-md" />
-            <div className="ml-4 rounded-md bg-rose-500 px-2 py-0.5 text-[10px] text-white">
-              Younes
-            </div>
-          </motion.div>
-        </motion.div>
       </div>
     </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        6. 3D LOGO COMPONENT (CORE)                         */
+/* -------------------------------------------------------------------------- */
+
+function HolographicLogo({ spread, wireframe, glow }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+  const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  // Handle both Mouse and Touch events
+  function handleMove(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    // Check if it's a touch event or mouse event
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+    const mX = clientX - rect.left;
+    const mY = clientY - rect.top;
+    
+    const xPct = mX / width - 0.5;
+    const yPct = mY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  }
+
+  function handleLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      // FIX 2: Changed fixed 400px to percentage based width with constraints
+      className="relative flex h-[300px] w-full max-w-[300px] items-center justify-center sm:h-[400px] sm:max-w-[400px]"
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      onTouchMove={handleMove} // Added touch support for mobile
+      onTouchEnd={handleLeave}
+      style={{ 
+        perspective: 1000, 
+        transformStyle: "preserve-3d",
+        cursor: "grab"
+      }}
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative h-48 w-48 sm:h-64 sm:w-64" // Also scaled down inner container slightly for mobile
+      >
+        {logoLayers.map((layer, i) => (
+           <LogoLayer 
+             key={layer.id} 
+             layer={layer} 
+             depthIndex={i} 
+             spread={spread} 
+             wireframe={wireframe}
+             glow={glow}
+           />
+        ))}
+
+        {glow && (
+          <motion.div 
+             style={{ translateZ: -50 }}
+             className="absolute inset-0 -z-10 rounded-full bg-emerald-500/20 blur-[60px] sm:blur-[80px]" 
+          />
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function LogoLayer({ layer, depthIndex, spread, wireframe, glow }) {
+  // Calculate dynamic Z position based on spread slider
+  // Base distance + (Spread Multiplier * Layer Index)
+  const zValue = layer.z + (spread * (depthIndex + 1) * 1.5);
+
+  return (
+    <motion.div
+      className="absolute inset-0 h-full w-full"
+      style={{ translateZ: zValue }}
+      animate={{ translateZ: zValue }} // Animate smoothly when slider changes
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+    >
+      <svg viewBox="0 0 1000 1000" className="h-full w-full overflow-visible">
+        {layer.paths.map((d, idx) => (
+          <motion.path
+            key={idx}
+            d={d}
+            initial={false}
+            animate={{
+              fill: wireframe ? "transparent" : (glow ? "#10b981" : "#0f172a"), // Emerald if glow, Slate if not
+              stroke: wireframe ? "#10b981" : "transparent",
+              strokeWidth: wireframe ? 10 : 0,
+              fillOpacity: wireframe ? 0 : (glow ? 0.9 : 1) // Slightly transparent if glowing
+            }}
+            transition={{ duration: 0.3 }}
+            style={{
+              filter: glow ? "drop-shadow(0 0 10px rgba(16, 185, 129, 0.5))" : "drop-shadow(0 10px 20px rgba(0,0,0,0.2))",
+            }}
+            className="dark:fill-emerald-400 dark:text-emerald-400" 
+          />
+        ))}
+      </svg>
+    </motion.div>
   );
 }

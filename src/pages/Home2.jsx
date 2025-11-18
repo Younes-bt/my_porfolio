@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { SEO } from '@/components/seo';
 
 // --- CONFIGURATION ---
 const defaultTerminalScript = [
@@ -24,7 +25,7 @@ const defaultTerminalScript = [
 export default function HomePage() {
   const { t } = useTranslation();
   // Using a safe fallback if translation fails or isn't set up for the script
-  const terminalScript = defaultTerminalScript; 
+  const terminalScript = defaultTerminalScript;
 
   // Mouse position for the spotlight effect
   const mouseX = useMotionValue(0);
@@ -37,19 +38,24 @@ export default function HomePage() {
   }
 
   return (
-    <div 
+    <div
       className="relative min-h-[85vh] w-full overflow-hidden rounded-[30px] border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-[#050505] transition-colors duration-500"
       onMouseMove={handleMouseMove}
     >
+      <SEO
+        title="Home"
+        description="Full-Stack Developer & UI Architect building digital experiences in Morocco."
+      />
+
       {/* --- BACKGROUND EFFECTS --- */}
       <Spotlight mouseX={mouseX} mouseY={mouseY} />
       <GridPattern />
 
       {/* --- MAIN CONTENT --- */}
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center gap-12 px-6 py-12 lg:flex-row lg:gap-20">
-        
+
         {/* LEFT: THE TERMINAL (The Logic) */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -59,7 +65,7 @@ export default function HomePage() {
         </motion.div>
 
         {/* RIGHT: THE PROFILE (The Human) */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -86,7 +92,7 @@ function ProfileSection({ t }) {
       {/* Avatar with glowing pulsing ring */}
       <div className="relative mx-auto lg:mx-0">
         <div className="absolute -inset-4 animate-pulse rounded-full bg-emerald-500/20 blur-xl dark:bg-emerald-500/10" />
-        <motion.div 
+        <motion.div
           whileHover={{ scale: 1.05 }}
           className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-white bg-slate-100 shadow-2xl dark:border-slate-700 dark:bg-slate-800"
         >
@@ -102,10 +108,10 @@ function ProfileSection({ t }) {
           <p className="font-mono text-sm font-medium text-emerald-600 dark:text-emerald-400">
             // {t('hero.profile.greeting') || "WELCOME TO MY PORTFOLIO"}
           </p>
-          
+
           {/* Glitch Text Effect Component */}
           <GlitchText text={t('hero.profile.title.prefix') + " " + t('hero.profile.title.highlight')} />
-          
+
           <p className="max-w-md text-slate-600 dark:text-slate-400">
             {t('hero.profile.role') || "I craft high-performance applications with a focus on user experience and clean architecture."}
           </p>
@@ -114,11 +120,11 @@ function ProfileSection({ t }) {
         <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
           <Button asChild size="lg" className="bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600 dark:text-white dark:hover:bg-emerald-500">
             <Link to="/projects" className="group flex items-center gap-2">
-              View Work 
+              View Work
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
-          
+
           <Button asChild variant="outline" size="lg" className="border-slate-300 dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-800">
             <Link to="/contact" className="flex items-center gap-2">
               Contact Me
@@ -170,7 +176,7 @@ function TerminalWindow({ script }) {
 
 function TerminalTyper({ lines }) {
   const [displayedLines, setDisplayedLines] = useState([]);
-  
+
   useEffect(() => {
     let currentLineIndex = 0;
     let currentCharIndex = 0;
@@ -184,18 +190,18 @@ function TerminalTyper({ lines }) {
       }
 
       const line = lines[currentLineIndex];
-      
+
       // Fast forward empty lines
       if (line.text === "") {
-         setDisplayedLines(prev => [...prev, { ...line, text: "" }]);
-         currentLineIndex++;
-         currentCharIndex = 0;
-         currentText = "";
-         return;
+        setDisplayedLines(prev => [...prev, { ...line, text: "" }]);
+        currentLineIndex++;
+        currentCharIndex = 0;
+        currentText = "";
+        return;
       }
 
       currentText += line.text[currentCharIndex];
-      
+
       setDisplayedLines(prev => {
         const newLines = [...prev];
         if (newLines[currentLineIndex]) {
@@ -227,8 +233,8 @@ function TerminalTyper({ lines }) {
           {line.text}
         </div>
       ))}
-      <motion.span 
-        animate={{ opacity: [1, 0] }} 
+      <motion.span
+        animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.8, repeat: Infinity }}
         className="inline-block h-4 w-2 bg-emerald-500 align-middle"
       />
@@ -287,14 +293,14 @@ function GlitchText({ text = "Creative Developer" }) {
 function FloatingIcons() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <motion.div 
+      <motion.div
         animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         className="absolute left-[10%] top-[20%] text-slate-300 dark:text-slate-800"
       >
         <Cpu size={120} strokeWidth={1} />
       </motion.div>
-      <motion.div 
+      <motion.div
         animate={{ y: [0, 30, 0], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         className="absolute right-[5%] bottom-[20%] text-slate-300 dark:text-slate-800"

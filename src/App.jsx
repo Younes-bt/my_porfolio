@@ -10,6 +10,7 @@ import ExperiencePage from '@/pages/Experience';
 import ContactPage from '@/pages/Contact';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
+import { SEO } from '@/components/seo';
 
 export default function App() {
   const { i18n } = useTranslation();
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 transition-colors dark:bg-zinc-950 dark:text-white">
+      <SEO />
       <SiteHeader />
       <main className="flex-1 px-2 md:px-10 py-12 md:py-16">
         <Routes>

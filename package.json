@@ -9,6 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "overrides": {
+    "react-helmet-async": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  },
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-select": "^2.2.6",

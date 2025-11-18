@@ -310,7 +310,6 @@ function InteractiveTerminal() {
           className="flex-1 bg-transparent text-slate-100 outline-none placeholder:text-slate-600"
           autoComplete="off"
           spellCheck="false"
-          autoFocus
         />
         <div className="h-4 w-2 animate-pulse bg-emerald-500" />
       </form>
@@ -450,7 +449,7 @@ function DesignerWindow() {
   const [glow, setGlow] = useState(true);
   
   return (
-    // FIX 1: Changed h-[600px] to h-auto lg:h-[600px]. 
+
     // This lets it scroll on mobile but stays fixed on desktop.
     <div className="relative flex h-auto w-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-xl dark:border-slate-700 dark:bg-[#050505] lg:h-[600px] lg:flex-row">
       

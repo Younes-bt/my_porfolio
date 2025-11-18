@@ -142,38 +142,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Reveal>
-        <section className="relative overflow-hidden rounded-[32px] border border-slate-900/10 bg-gradient-to-br from-white via-emerald-50/40 to-blue-50 px-6 py-12 shadow-2xl shadow-slate-900/10 transition-colors dark:border-white/10 dark:from-slate-900 dark:via-slate-900/80 dark:to-slate-900/40 dark:shadow-slate-900/60 md:px-16">
-          <div className="absolute inset-0 opacity-50 blur-3xl dark:opacity-20" aria-hidden>
-            <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-br from-emerald-500/20 to-transparent" />
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-br from-sky-400/20 to-transparent" />
-          </div>
-          <div className="relative grid gap-10 lg:grid-cols-[0.75fr_1fr]">
-            <div className="space-y-6">
-              <p className="text-sm uppercase tracking-[0.4em] text-emerald-500 dark:text-emerald-300">
-                {story.eyebrow}
-              </p>
-              <h2 className="text-3xl font-display text-slate-900 dark:text-white">{story.title}</h2>
-              <div className="rounded-3xl border border-slate-900/10 bg-white/70 p-6 text-base text-slate-700 shadow-lg dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-                {story.body?.[0]}
-              </div>
-            </div>
-            <div className="space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-200">
-              {story.body?.slice(1).map((paragraph, index) => (
-                <p
-                  key={paragraph.slice(0, 15) + index}
-                  className="rounded-2xl border border-transparent bg-white/70 p-5 shadow dark:bg-white/5"
-                >
-                  {paragraph}
-                </p>
-              ))}
-              <div className="rounded-3xl border border-emerald-400/40 bg-emerald-500/10 p-6 text-lg font-display text-emerald-700 shadow-lg dark:border-emerald-400/50 dark:bg-emerald-400/10 dark:text-emerald-200">
-                {story.closing}
-              </div>
-            </div>
-          </div>
-        </section>
-      </Reveal>
+      
     </div>
   );
 }

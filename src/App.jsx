@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import HomePage from '@/pages/Home';
+import HomePage2 from '@/pages/Home2';
 import AboutPage from '@/pages/About';
+import AboutPage2 from '@/pages/About2';
 import ProjectsPage from '@/pages/Projects';
 import ExperiencePage from '@/pages/Experience';
 import ContactPage from '@/pages/Contact';
@@ -23,8 +25,8 @@ export default function App() {
       <SiteHeader />
       <main className="flex-1 px-2 md:px-10 py-12 md:py-16">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/" element={<HomePage2 />} />
+          <Route path="/about" element={<AboutPage2 />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/contact" element={<ContactPage />} />

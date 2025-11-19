@@ -4,10 +4,11 @@ import {
   ExternalLink, ChevronRight, ChevronLeft, 
   Cpu, Shield, Zap, Layers, Code2, MousePointer2, Lock, Loader2, ImageIcon 
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
 // --- 1. DATA ---
-const projects = [
+const defaultProjects = [
   {
     id: 'ksar-data',
     title: 'Ksar-Data',
@@ -56,20 +57,42 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const translatedProjects = t('projectsPage.items', { returnObjects: true });
+  const projects =
+    Array.isArray(translatedProjects) && translatedProjects.length > 0 ? translatedProjects : defaultProjects;
+  const projectCount = projects.length || 1;
+  const projectCopy = {
+    projectLabel: t('projectsPage.projectLabel', { defaultValue: 'Project' }),
+    systemArchitecture: t('projectsPage.systemArchitecture', { defaultValue: 'System Architecture' }),
+    visitCta: t('projectsPage.visitCta', { defaultValue: 'Visit Live Site' }),
+    interact: t('projectsPage.interact', { defaultValue: 'Interact' }),
+    lock: t('projectsPage.lock', { defaultValue: 'Lock' }),
+    imageLabel: t('projectsPage.imageLabel', { defaultValue: 'Img' }),
+    interactHint: t('projectsPage.interactHint', { defaultValue: 'Click "Interact" to use site' }),
+    imageMissing: t('projectsPage.imageMissing', { defaultValue: 'PREVIEW IMAGE NOT FOUND' }),
+    externalPreview: t('projectsPage.externalPreview', { defaultValue: 'External Preview Only' }),
+  };
 
   const nextProject = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % projects.length);
+    setCurrentIndex((prev) => (prev + 1) % projectCount);
   };
 
   const prevProject = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setCurrentIndex((prev) => (prev - 1 + projectCount) % projectCount);
   };
 
-  const activeProject = projects[currentIndex];
+  const activeProject = projects[currentIndex] || projects[0];
+
+  useEffect(() => {
+    if (currentIndex >= projectCount) {
+      setCurrentIndex(0);
+    }
+  }, [projectCount, currentIndex]);
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden px-4 py-12 text-slate-200 selection:bg-white/20">
@@ -104,6 +127,7 @@ export default function ProjectsPage() {
                 key={activeProject.id} 
                 project={activeProject} 
                 direction={direction} 
+                copy={projectCopy}
               />
             </AnimatePresence>
           </div>
@@ -129,7 +153,7 @@ export default function ProjectsPage() {
               <div className="space-y-2 border-l-2 border-white/10 pl-6">
                 <div className="flex items-center gap-3">
                    <span className={cn("text-xs font-bold uppercase tracking-widest", activeProject.accent)}>
-                      Project 0{currentIndex + 1}
+                      {projectCopy.projectLabel} 0{currentIndex + 1}
                    </span>
                    <div className="h-px w-12 bg-white/10" />
                    <span className="text-xs text-slate-500">{activeProject.date}</span>
@@ -148,7 +172,9 @@ export default function ProjectsPage() {
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">System Architecture</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                  {projectCopy.systemArchitecture}
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {activeProject.stack.map((tech) => (
                     <div 
@@ -175,7 +201,7 @@ export default function ProjectsPage() {
                     activeProject.color
                   )}
                 >
-                  Visit Live Site
+                  {projectCopy.visitCta}
                   <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </div>
@@ -196,10 +222,18 @@ export default function ProjectsPage() {
 /*                         3D HOLO CARD COMPONENT                             */
 /* -------------------------------------------------------------------------- */
 
-function HoloCard({ project, direction }) {
+function HoloCard({ project, direction, copy }) {
   const [isHovering, setIsHovering] = useState(false);
   const [isInteracting, setIsInteracting] = useState(false); 
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const {
+    interact = 'Interact',
+    lock = 'Lock',
+    imageLabel = 'Img',
+    interactHint = 'Click "Interact" to use site',
+    imageMissing = 'PREVIEW IMAGE NOT FOUND',
+    externalPreview = 'External Preview Only',
+  } = copy || {};
 
   // 3D Tilt Logic
   const x = useMotionValue(0);
@@ -313,11 +347,11 @@ function HoloCard({ project, direction }) {
                )}
              >
                {isInteracting ? <Lock size={10} /> : <MousePointer2 size={10} />}
-               {isInteracting ? "Lock" : "Interact"}
+               {isInteracting ? lock : interact}
              </button>
            ) : (
              <div className="flex items-center gap-1 rounded px-2 py-1 text-[10px] font-bold uppercase text-slate-500 bg-white/5">
-               <ImageIcon size={10} /> Img
+               <ImageIcon size={10} /> {imageLabel}
              </div>
            )}
         </div>
@@ -366,7 +400,7 @@ function HoloCard({ project, direction }) {
                      exit={{ opacity: 0 }}
                      className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-black/80 px-4 py-2 text-xs font-bold text-white backdrop-blur z-30"
                    >
-                     Click "Interact" to use site
+                     {interactHint}
                    </motion.div>
                  )}
                </AnimatePresence>
@@ -383,7 +417,7 @@ function HoloCard({ project, direction }) {
                     />
                  ) : (
                     <div className={cn("h-full w-full flex items-center justify-center bg-gradient-to-br", project.color)}>
-                      <span className="font-mono text-xs text-white/50">PREVIEW IMAGE NOT FOUND</span>
+                      <span className="font-mono text-xs text-white/50">{imageMissing}</span>
                     </div>
                  )}
                  {isHovering && (
@@ -393,7 +427,7 @@ function HoloCard({ project, direction }) {
                      className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]"
                    >
                       <div className="rounded-full bg-white/10 px-4 py-2 text-xs font-bold text-white backdrop-blur">
-                        External Preview Only
+                        {externalPreview}
                       </div>
                    </motion.div>
                  )}

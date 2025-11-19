@@ -227,7 +227,8 @@
     "statusLabel": "Status",
     "locationLabel": "Remote / Paris",
     "locationDescription": "Available across EU/US timezones.",
-    "ctaSchedule": "Schedule a call"
+    "ctaSchedule": "Schedule a call",
+    "emailAddress": "hello@example.com"
   },
   "languages": {
     "en": "English",
@@ -288,5 +289,448 @@
       }
     },
     "viewButton": "View"
+  },
+  "home2": {
+    "terminal": {
+      "windowTitle": "bash - dev_env",
+      "portLabel": "Port: 3000",
+      "status": "Online",
+      "script": [
+        {
+          "text": "Initializing system...",
+          "color": "text-slate-500"
+        },
+        {
+          "text": "Loading modules: [React, Node, Design]...",
+          "color": "text-slate-400"
+        },
+        {
+          "text": ">> Access granted.",
+          "color": "text-emerald-500"
+        },
+        {
+          "text": "",
+          "color": "text-transparent"
+        },
+        {
+          "text": "Hello, World! I am",
+          "color": "text-slate-200"
+        },
+        {
+          "text": "YOUNES",
+          "color": "text-emerald-400 font-bold text-lg tracking-wider"
+        },
+        {
+          "text": "Full-Stack Developer & UI Architect",
+          "color": "text-blue-400"
+        },
+        {
+          "text": "",
+          "color": "text-transparent"
+        },
+        {
+          "text": "Current status:",
+          "color": "text-slate-400"
+        },
+        {
+          "text": "-> Building digital experiences in Morocco.",
+          "color": "text-amber-300"
+        },
+        {
+          "text": "-> Ready for new challenges.",
+          "color": "text-emerald-300"
+        }
+      ]
+    },
+    "glitchFallback": "Creative Developer"
+  },
+  "projectsPage": {
+    "projectLabel": "Project",
+    "systemArchitecture": "System Architecture",
+    "visitCta": "Visit Live Site",
+    "interact": "Interact",
+    "lock": "Lock",
+    "imageLabel": "Img",
+    "interactHint": "Click \"Interact\" to use site",
+    "imageMissing": "PREVIEW IMAGE NOT FOUND",
+    "externalPreview": "External Preview Only",
+    "items": [
+      {
+        "id": "ksar-data",
+        "title": "Ksar-Data",
+        "subtitle": "Open Data Platform",
+        "url": "https://www.ksardata.com",
+        "date": "2024",
+        "embeddable": true,
+        "image": "/public/ksardata-screen.png",
+        "stack": [
+          "React",
+          "ShadCN",
+          "Tailwind",
+          "Vercel"
+        ],
+        "desc": "A civic-tech initiative bringing transparency to Ksar El Kebir. Visualizes municipal budgets and census data.",
+        "color": "from-emerald-500 to-teal-900",
+        "accent": "text-emerald-400",
+        "border": "border-emerald-500/50",
+        "shadow": "shadow-emerald-500/20"
+      },
+      {
+        "id": "tarik-school",
+        "title": "Tarik Ibn Ziyad",
+        "subtitle": "School Portal",
+        "url": "https://www.tarikibnziyad.com",
+        "date": "2023",
+        "embeddable": true,
+        "image": "",
+        "stack": [
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "Static"
+        ],
+        "desc": "Digital transformation for a traditional institution. A lightweight, bilingual platform connecting parents and students.",
+        "color": "from-blue-600 to-indigo-900",
+        "accent": "text-blue-400",
+        "border": "border-blue-500/50",
+        "shadow": "shadow-blue-500/20"
+      },
+      {
+        "id": "walid-portfolio",
+        "title": "Walid Mouhan",
+        "subtitle": "Academic Portfolio",
+        "url": "https://www.walidmouhan.com",
+        "date": "2023",
+        "embeddable": false,
+        "image": "/walid-screen.png",
+        "stack": [
+          "Django",
+          "Python",
+          "Tailwind",
+          "Render"
+        ],
+        "desc": "Minimalist academic portfolio for a PhD Researcher. Focuses on content hierarchy and publication archiving.",
+        "color": "from-amber-500 to-orange-900",
+        "accent": "text-amber-400",
+        "border": "border-amber-500/50",
+        "shadow": "shadow-amber-500/20"
+      }
+    ]
+  },
+  "experiencePage": {
+    "badge": "System Log",
+    "title": {
+      "primary": "Career",
+      "accent": "Trace"
+    },
+    "subtitle": "// EXECUTION_HISTORY: Tracking the evolution from student to founder.",
+    "timeline": [
+      {
+        "id": "opicom",
+        "role": "Founder & Lead Architect",
+        "company": "OPICOM Tech",
+        "period": "In Progress",
+        "desc": "The foundation of my future studio. Bringing together tech, design, and civic transparency to create real impact for local businesses.",
+        "tags": [
+          "Vision",
+          "Leadership",
+          "R&D",
+          "Civic Tech"
+        ],
+        "icon": "BrainCircuit",
+        "color": "emerald"
+      },
+      {
+        "id": "freelance",
+        "role": "Full-Stack Developer",
+        "company": "Freelance / Independent",
+        "period": "3-4 Years",
+        "desc": "Building real projects for real clients—from schools to researchers. I ship idea → design → development → deployment.",
+        "tags": [
+          "Full-Stack",
+          "Client Relations",
+          "Deployment",
+          "System Design"
+        ],
+        "icon": "Cpu",
+        "color": "amber"
+      },
+      {
+        "id": "instructor",
+        "role": "Tech Instructor",
+        "company": "Various Schools",
+        "period": "Part-Time",
+        "desc": "Teaching IT, Photoshop, and digital fundamentals. Sharing knowledge sharpened my patience and clarity when coding.",
+        "tags": [
+          "Mentorship",
+          "Communication",
+          "Digital Literacy",
+          "Design Tools"
+        ],
+        "icon": "Network",
+        "color": "blue"
+      },
+      {
+        "id": "education",
+        "role": "CS Degree + Self-Taught",
+        "company": "University & CS50",
+        "period": "Origin",
+        "desc": "Started with CS50 Harvard and never stopped. Late nights documenting, debugging, and building across modern stacks.",
+        "tags": [
+          "Computer Science",
+          "Self-Learning",
+          "Research",
+          "Algorithms"
+        ],
+        "icon": "GraduationCap",
+        "color": "rose"
+      }
+    ],
+    "achievements": [
+      {
+        "label": "Real-World Projects Delivered",
+        "value": "10+",
+        "icon": "Server"
+      },
+      {
+        "label": "First Open-Data Platform (Ksar)",
+        "value": "LAUNCHED",
+        "icon": "Database"
+      },
+      {
+        "label": "Stack Proficiency",
+        "value": "HIGH",
+        "icon": "Code2"
+      },
+      {
+        "label": "AI Integration Workflow",
+        "value": "ACTIVE",
+        "icon": "Zap"
+      }
+    ],
+    "achievementsTitle": "System Benchmarks",
+    "achievementsSubtitle": "Performance Analysis & Highlights",
+    "achievementsFooter": {
+      "id": "ID: YOUNES-DEV-001",
+      "status": "STATUS: READY_TO_WORK"
+    }
+  },
+  "aboutPage2": {
+    "backend": {
+      "sidebar": {
+        "systemLabel": "SYSTEM_ROOT",
+        "cpuLabel": "CPU",
+        "cpuValue": "12%",
+        "ramLabel": "RAM",
+        "ramValue": "424MB",
+        "processesLabel": "PROCESSES:",
+        "processes": [
+          {
+            "name": "node_server",
+            "pid": "PID: 402",
+            "active": true
+          },
+          {
+            "name": "docker_daemon",
+            "pid": "PID: 119",
+            "active": false
+          },
+          {
+            "name": "postgres_worker",
+            "pid": "PID: 882",
+            "active": false
+          }
+        ],
+        "uptime": "Uptime: 14d 2h 12m"
+      },
+      "terminal": {
+        "status": "SSH: connected",
+        "banner": "Younes Interactive Shell v2.0.4",
+        "connectedMessage": "Connected to remote instance.",
+        "helpHint": "Type \"help\" to view available commands.",
+        "clearMessage": "Console cleared.",
+        "prompt": "guest@portfolio:~$",
+        "error": "Command not found: {{command}}. Try \"help\"."
+      }
+    },
+    "frontend": {
+      "title": "UI Compilation Process",
+      "subtitle": "Drag slider to compare Wireframe vs. Production.",
+      "devices": {
+        "desktop": "Desktop",
+        "mobile": "Mobile"
+      },
+      "labels": {
+        "rendered": "Rendered",
+        "blueprint": "Blueprint"
+      }
+    },
+    "designer": {
+      "visualEngineLabel": "Visual Engine",
+      "logoLabTitle": "Logo Lab",
+      "logoLabDescription": "Interact with the brand identity in 3D space.",
+      "explosionFactor": "Explosion Factor",
+      "neonBloom": "Neon Bloom",
+      "renderModes": "Render Modes",
+      "interactivePreview": "Interactive Preview"
+    }
+  },
+  "terminalData": {
+    "commands": {
+      "help": {
+        "description": "List available commands",
+        "output": [
+          "Available commands:",
+          "  about       - Who is Younes?",
+          "  stacks      - Tech arsenal",
+          "  projects    - Case studies",
+          "  experience  - Career timeline",
+          "  contact     - Communication channels",
+          "  setup       - Hardware & Software config",
+          "  ls          - List directory contents",
+          "  clear       - Clear the terminal"
+        ]
+      },
+      "?": {
+        "description": "Alias for help",
+        "output": [
+          "Type \"help\" to see available commands."
+        ]
+      },
+      "clear": {
+        "description": "Clears the terminal",
+        "output": []
+      },
+      "about": {
+        "description": "Show short bio",
+        "output": [
+          ">> IDENTITY_VERIFIED",
+          "Younes El Bettate",
+          "-----------------",
+          "Self-taught Full-Stack Developer & Founder of OPICOM Tech.",
+          "Based in Morocco 🇲🇦",
+          "Focus: Building purposeful digital products, civic tech tools, and school management systems."
+        ]
+      },
+      "full_name": {
+        "description": "Display full name",
+        "output": [
+          "Younes El Bettate"
+        ]
+      },
+      "skills": {
+        "description": "List key skills",
+        "output": [
+          ">> LOADING_SKILL_MATRIX...",
+          "- Architecture: API Design, Microservices, MVC",
+          "- UI/UX: Motion Design, Rapid Prototyping, Design Systems",
+          "- Strategy: Product Management, Agile/Scrum"
+        ]
+      },
+      "stacks": {
+        "description": "List core stacks",
+        "output": [
+          ">> ANALYZING_CODEBASE...",
+          "[BACKEND]   Python (Django, FastAPI), PostgreSQL, Redis, Docker",
+          "[FRONTEND]  React, TypeScript, TailwindCSS, Framer Motion",
+          "[MOBILE]    React Native, Expo",
+          "[DESKTOP]   Tauri, Electron"
+        ]
+      },
+      "projects": {
+        "description": "Show highlight projects",
+        "output": [
+          "1. Ksar-Data ....... [Civic Tech Dashboard]",
+          "2. OPICOM Studio ... [Agency Portfolio]",
+          "3. Restaurant OS ... [POS System]",
+          "4. School MS ....... [EdTech Platform]",
+          "",
+          "Type \"open <project_name>\" (coming soon) to view details."
+        ]
+      },
+      "experience": {
+        "description": "Show summary of experience",
+        "output": [
+          ">> TIMELINE_FETCHED",
+          "[202X - Now] Founder @ OPICOM Tech",
+          "[202X - 202X] Freelance Full-Stack Developer",
+          "-----------------",
+          "4+ years building end-to-end solutions for schools, civic tech, and independent clients."
+        ]
+      },
+      "contact": {
+        "description": "How to reach out",
+        "output": [
+          ">> OPENING_CHANNELS...",
+          "Email:    bt.younesse@gmail.com",
+          "GitHub:   github.com/Younes-bt",
+          "LinkedIn: /in/unesbt42"
+        ]
+      },
+      "ls": {
+        "description": "List files",
+        "output": [
+          "drwxr-xr-x  younes  projects/",
+          "drwxr-xr-x  younes  skills/",
+          "drwxr-xr-x  younes  config/",
+          "-rw-r--r--  younes  resume.pdf",
+          "-rw-r--r--  younes  secret_plans.txt"
+        ]
+      },
+      "pwd": {
+        "description": "Print working directory",
+        "output": [
+          "/home/guest/portfolio"
+        ]
+      },
+      "whoami": {
+        "description": "Current user",
+        "output": [
+          "guest@younes.dev (Access Level: VISITOR)"
+        ]
+      },
+      "date": {
+        "description": "Show date",
+        "output": [
+          "{date}"
+        ]
+      },
+      "setup": {
+        "description": "Development environment",
+        "output": [
+          ">> FETCHING_SYSTEM_SPECS",
+          "- Editor:   VS Code (Theme: One Dark Pro)",
+          "- Font:     Geist Mono / JetBrains Mono",
+          "- Terminal: Zsh + Oh My Zsh + Starship",
+          "- Browser:  Arc / Chrome Developer Edition"
+        ]
+      },
+      "sudo": {
+        "description": "Superuser do",
+        "output": [
+          "I like the way how you Think!!. This incident will be reported.",
+          "(Nice try, though.)"
+        ]
+      },
+      "cat": {
+        "description": "Read file",
+        "output": [
+          "usage: cat <filename> (File system access is restricted for guests)"
+        ]
+      },
+      "coffee": {
+        "description": "Brew coffee",
+        "output": [
+          "? Brewing...",
+          "Error 418: I am a teapot."
+        ]
+      },
+      "exit": {
+        "description": "Close terminal",
+        "output": [
+          "There is no escape. You must hire me first."
+        ]
+      }
+    }
   }
 }

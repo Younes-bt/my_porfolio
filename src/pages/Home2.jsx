@@ -24,8 +24,19 @@ const defaultTerminalScript = [
 
 export default function HomePage() {
   const { t } = useTranslation();
-  // Using a safe fallback if translation fails or isn't set up for the script
-  const terminalScript = defaultTerminalScript;
+  const translatedTerminal = t('home2.terminal', { returnObjects: true }) || {};
+  const terminalScript =
+    Array.isArray(translatedTerminal.script) && translatedTerminal.script.length > 0
+      ? translatedTerminal.script
+      : defaultTerminalScript;
+  const windowTitle = translatedTerminal.windowTitle || 'bash - dev_env';
+  const portLabel = translatedTerminal.portLabel || 'Port: 3000';
+  const statusLabel = translatedTerminal.status || 'Online';
+  const glitchFallback = t('home2.glitchFallback') || 'Creative Developer';
+  const glitchText = [t('hero.profile.title.prefix'), t('hero.profile.title.highlight')]
+    .filter(Boolean)
+    .join(' ')
+    .trim() || glitchFallback;
 
   // Mouse position for the spotlight effect
   const mouseX = useMotionValue(0);
@@ -61,7 +72,12 @@ export default function HomePage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full max-w-lg"
         >
-          <TerminalWindow script={terminalScript} />
+          <TerminalWindow
+            script={terminalScript}
+            windowTitle={windowTitle}
+            portLabel={portLabel}
+            statusLabel={statusLabel}
+          />
         </motion.div>
 
         {/* RIGHT: THE PROFILE (The Human) */}
@@ -71,7 +87,7 @@ export default function HomePage() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="flex w-full max-w-lg flex-col items-center text-center lg:items-start lg:text-left"
         >
-          <ProfileSection t={t} />
+          <ProfileSection t={t} glitchText={glitchText || glitchFallback} />
         </motion.div>
 
       </div>
@@ -86,7 +102,7 @@ export default function HomePage() {
 /*                                SUB-COMPONENTS                              */
 /* -------------------------------------------------------------------------- */
 
-function ProfileSection({ t }) {
+function ProfileSection({ t, glitchText }) {
   return (
     <div className="space-y-8">
       {/* Avatar with glowing pulsing ring */}
@@ -110,7 +126,7 @@ function ProfileSection({ t }) {
           </p>
 
           {/* Glitch Text Effect Component */}
-          <GlitchText text={t('hero.profile.title.prefix') + " " + t('hero.profile.title.highlight')} />
+          <GlitchText text={glitchText} />
 
           <p className="max-w-md text-slate-600 dark:text-slate-400">
             {t('hero.profile.role') || "I craft high-performance applications with a focus on user experience and clean architecture."}
@@ -118,16 +134,20 @@ function ProfileSection({ t }) {
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
-          <Button asChild size="lg" className="bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600 dark:text-white dark:hover:bg-emerald-500">
+          <Button
+            asChild
+            size="lg"
+            className="bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600 dark:text-white dark:hover:bg-emerald-500"
+          >
             <Link to="/projects" className="group flex items-center gap-2">
-              View Work
+              {t('hero.primaryCta')}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
 
           <Button asChild variant="outline" size="lg" className="border-slate-300 dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-800">
             <Link to="/contact" className="flex items-center gap-2">
-              Contact Me
+              {t('hero.secondaryCta')}
               <Star className="h-4 w-4 text-amber-400" />
             </Link>
           </Button>
@@ -137,7 +157,7 @@ function ProfileSection({ t }) {
   );
 }
 
-function TerminalWindow({ script }) {
+function TerminalWindow({ script, windowTitle = 'bash - dev_env', portLabel = 'Port: 3000', statusLabel = 'Online' }) {
   return (
     <div className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-[#0F1115]">
       {/* Window Header */}
@@ -149,7 +169,7 @@ function TerminalWindow({ script }) {
         </div>
         <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
           <TerminalIcon size={12} />
-          <span>bash — dev_env</span>
+          <span>{windowTitle}</span>
         </div>
         <div className="w-12" /> {/* Spacer for balance */}
       </div>
@@ -161,13 +181,13 @@ function TerminalWindow({ script }) {
 
       {/* Bottom Status Bar */}
       <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50 px-4 py-2 text-[10px] uppercase tracking-wider text-slate-400 dark:border-slate-800 dark:bg-[#0A0A0A]">
-        <span>Port: 3000</span>
+        <span>{portLabel}</span>
         <span className="flex items-center gap-1.5">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </span>
-          Online
+          {statusLabel}
         </span>
       </div>
     </div>

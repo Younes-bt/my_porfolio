@@ -42,6 +42,12 @@ export default function AboutPage() {
   const { t } = useTranslation();
   const [active, setActive] = useState('backend');
   const tabs = t('about.tabs', { returnObjects: true });
+  const localizedCommands = t('terminalData.commands', { returnObjects: true });
+  const terminalStrings = t('aboutPage2.backend.terminal', { returnObjects: true }) || {};
+  const commandDictionary =
+    localizedCommands && typeof localizedCommands === 'object' && Object.keys(localizedCommands).length > 0
+      ? localizedCommands
+      : terminalCommands;
 
   return (
     <div className="space-y-12 px-1 sm:px-0">
@@ -65,7 +71,7 @@ export default function AboutPage() {
               </button>
             ))}
           </div>
-          {active === 'backend' && <BackendWindow />}
+          {active === 'backend' && <BackendWindow commands={commandDictionary} terminalStrings={terminalStrings} />}
           {active === 'frontend' && <FrontendWindow t={t} />}
           {active === 'designer' && <DesignerWindow />}
         </div>
@@ -74,7 +80,7 @@ export default function AboutPage() {
   );
 }
 
-function BackendWindow() {
+function BackendWindow({ commands, terminalStrings }) {
   return (
     <div className="flex min-h-[60vh] max-h-[75vh] w-full flex-col overflow-hidden rounded-xl border border-slate-500/40 bg-zinc-950 text-emerald-100 shadow-inner sm:min-h-[70vh]">
       <div className="flex items-center gap-2 rounded-t-xl border-b border-white/10 px-4 py-3 text-xs text-white/60">
@@ -83,15 +89,15 @@ function BackendWindow() {
         <span className="h-3 w-3 rounded-full bg-emerald-400" />
         <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.3em]">younes_terminal.sh</span>
       </div>
-      <InteractiveTerminal />
+      <InteractiveTerminal commands={commands} terminalStrings={terminalStrings} />
     </div>
   );
 }
 
-function InteractiveTerminal() {
+function InteractiveTerminal({ commands, terminalStrings }) {
   const initialEntries = [
-    { type: 'banner', text: "Welcome to Younes' terminal portfolio" },
-    { type: 'text', text: 'Type "help" to see available commands.' },
+    { type: 'banner', text: terminalStrings?.banner || "Welcome to Younes' terminal portfolio" },
+    { type: 'text', text: terminalStrings?.helpHint || 'Type "help" to see available commands.' },
   ];
   const [entries, setEntries] = useState(initialEntries);
   const [command, setCommand] = useState('');
@@ -118,11 +124,13 @@ function InteractiveTerminal() {
       return;
     }
 
-    const commandEntry = { type: 'command', text: `visitor@younes.dev:~$ ${value}` };
-    const lookup = terminalCommands[normalized];
+    const prompt = terminalStrings?.prompt || 'visitor@younes.dev:~$';
+    const commandEntry = { type: 'command', text: `${prompt} ${value}` };
+    const lookup = commands && typeof commands === 'object' ? commands[normalized] : terminalCommands[normalized];
 
     if (!lookup) {
-      setEntries((prev) => [...prev, commandEntry, { type: 'text', text: `Command not found: ${value}` }]);
+      const message = (terminalStrings?.error || `Command not found: ${value}`).replace('{{command}}', value);
+      setEntries((prev) => [...prev, commandEntry, { type: 'text', text: message }]);
       return;
     }
 
@@ -152,7 +160,7 @@ function InteractiveTerminal() {
         ))}
       </div>
       <form onSubmit={handleSubmit} className="px-3 pb-4 font-mono text-sm text-emerald-200">
-        <span className="text-emerald-400">visitor@younes.dev:~$ </span>
+        <span className="text-emerald-400">{terminalStrings?.prompt || 'visitor@younes.dev:~$'} </span>
         <input
           ref={inputRef}
           value={command}

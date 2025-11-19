@@ -68,6 +68,15 @@ export default function AboutPage() {
   const { t } = useTranslation();
   const [active, setActive] = useState('backend');
   const tabs = t('about.tabs', { returnObjects: true }) || {};
+  const aboutPage2Strings = t('aboutPage2', { returnObjects: true }) || {};
+  const backendStrings = aboutPage2Strings.backend || {};
+  const frontendStrings = aboutPage2Strings.frontend || {};
+  const designerStrings = aboutPage2Strings.designer || {};
+  const localizedCommands = t('terminalData.commands', { returnObjects: true });
+  const commandDictionary =
+    localizedCommands && typeof localizedCommands === 'object' && Object.keys(localizedCommands).length > 0
+      ? localizedCommands
+      : terminalCommands;
 
   return (
     <div className="min-h-screen w-full space-y-8 px-4 py-8 md:py-12">
@@ -124,9 +133,9 @@ export default function AboutPage() {
             transition={{ duration: 0.3 }}
             className="w-full"
           >
-            {active === 'backend' && <BackendWindow />}
-            {active === 'frontend' && <FrontendWindow />}
-            {active === 'designer' && <DesignerWindow />}
+            {active === 'backend' && <BackendWindow strings={backendStrings} commands={commandDictionary} />}
+            {active === 'frontend' && <FrontendWindow strings={frontendStrings} />}
+            {active === 'designer' && <DesignerWindow strings={designerStrings} />}
           </motion.div>
         </AnimatePresence>
       </section>
@@ -138,7 +147,19 @@ export default function AboutPage() {
 /*                           1. BACKEND (TERMINAL)                            */
 /* -------------------------------------------------------------------------- */
 
-function BackendWindow() {
+function BackendWindow({ strings, commands }) {
+  const sidebar = strings?.sidebar || {};
+  const terminalStrings = strings?.terminal || {};
+  const processList =
+    Array.isArray(sidebar.processes) && sidebar.processes.length > 0
+      ? sidebar.processes
+      : [
+          { name: 'node_server', pid: 'PID: 402', active: true },
+          { name: 'docker_daemon', pid: 'PID: 119', active: false },
+          { name: 'postgres_worker', pid: 'PID: 882', active: false },
+        ];
+  const commandDictionary =
+    commands && typeof commands === 'object' && Object.keys(commands).length > 0 ? commands : terminalCommands;
   return (
     <div className="grid h-[600px] w-full overflow-hidden rounded-2xl border border-slate-800 bg-[#0c0c0c] shadow-2xl md:h-[65vh] md:grid-cols-[240px_1fr]">
       {/* Sidebar Stats (Decorative - Hidden on Mobile) */}
@@ -147,15 +168,17 @@ function BackendWindow() {
           {/* Header */}
           <div className="flex items-center gap-2 text-emerald-400">
             <Terminal size={18} />
-            <span className="font-mono text-xs font-bold tracking-widest">SYSTEM_ROOT</span>
+            <span className="font-mono text-xs font-bold tracking-widest">
+              {sidebar.systemLabel || 'SYSTEM_ROOT'}
+            </span>
           </div>
           
           {/* Stats */}
           <div className="space-y-6 font-mono text-[10px] text-slate-400">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2"><Cpu size={12}/> CPU</span>
-                <span className="text-emerald-500">12%</span>
+                <span className="flex items-center gap-2"><Cpu size={12}/> {sidebar.cpuLabel || 'CPU'}</span>
+                <span className="text-emerald-500">{sidebar.cpuValue || '12%'}</span>
               </div>
               <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
                 <motion.div 
@@ -168,8 +191,8 @@ function BackendWindow() {
             
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2"><Zap size={12}/> RAM</span>
-                <span className="text-amber-500">424MB</span>
+                <span className="flex items-center gap-2"><Zap size={12}/> {sidebar.ramLabel || 'RAM'}</span>
+                <span className="text-amber-500">{sidebar.ramValue || '424MB'}</span>
               </div>
               <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
                 <div className="h-full w-[40%] bg-amber-500" />
@@ -177,27 +200,34 @@ function BackendWindow() {
             </div>
 
             <div className="pt-4">
-               <p className="mb-3 text-xs font-bold text-slate-300">PROCESSES:</p>
+               <p className="mb-3 text-xs font-bold text-slate-300">
+                 {sidebar.processesLabel || 'PROCESSES:'}
+               </p>
                <ul className="space-y-3">
-                 <li className="flex items-center gap-2 text-emerald-300/80">
-                   <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                   node_server <span className="ml-auto opacity-50">PID: 402</span>
-                 </li>
-                 <li className="flex items-center gap-2 text-slate-500">
-                   <div className="h-1.5 w-1.5 rounded-full bg-slate-600" />
-                   docker_daemon <span className="ml-auto opacity-50">PID: 119</span>
-                 </li>
-                 <li className="flex items-center gap-2 text-slate-500">
-                   <div className="h-1.5 w-1.5 rounded-full bg-slate-600" />
-                   postgres_worker <span className="ml-auto opacity-50">PID: 882</span>
-                 </li>
+                 {processList.map((proc) => (
+                   <li
+                     key={`${proc.name}-${proc.pid}`}
+                     className={cn(
+                       'flex items-center gap-2',
+                       proc.active ? 'text-emerald-300/80' : 'text-slate-500'
+                     )}
+                   >
+                     <div
+                       className={cn(
+                         'h-1.5 w-1.5 rounded-full',
+                         proc.active ? 'bg-emerald-500 animate-pulse' : 'bg-slate-600'
+                       )}
+                     />
+                     {proc.name} <span className="ml-auto opacity-50">{proc.pid}</span>
+                   </li>
+                 ))}
                </ul>
             </div>
           </div>
         </div>
         
         <div className="mt-auto font-mono text-[10px] text-slate-600">
-          Uptime: 14d 2h 12m
+          {sidebar.uptime || 'Uptime: 14d 2h 12m'}
         </div>
       </div>
 
@@ -212,7 +242,7 @@ function BackendWindow() {
           </div>
           <div className="flex items-center gap-2 text-[10px] text-slate-500">
             <Wifi size={10} />
-            SSH: connected
+            {terminalStrings?.status || 'SSH: connected'}
           </div>
         </div>
 
@@ -220,17 +250,17 @@ function BackendWindow() {
         <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-20" />
 
         {/* Interactive Content */}
-        <InteractiveTerminal />
+        <InteractiveTerminal commands={commandDictionary} terminalStrings={terminalStrings} />
       </div>
     </div>
   );
 }
 
-function InteractiveTerminal() {
+function InteractiveTerminal({ commands, terminalStrings }) {
   const initialEntries = [
-    { type: 'banner', text: "Younes Interactive Shell v2.0.4" },
-    { type: 'text', text: 'Connected to remote instance.' },
-    { type: 'text', text: 'Type "help" to view available commands.' },
+    { type: 'banner', text: terminalStrings?.banner || "Younes Interactive Shell v2.0.4" },
+    { type: 'text', text: terminalStrings?.connectedMessage || 'Connected to remote instance.' },
+    { type: 'text', text: terminalStrings?.helpHint || 'Type "help" to view available commands.' },
   ];
   const [entries, setEntries] = useState(initialEntries);
   const [command, setCommand] = useState('');
@@ -250,20 +280,25 @@ function InteractiveTerminal() {
     const normalized = value.toLowerCase();
 
     if (normalized === 'clear') {
-      setEntries([{ type: 'text', text: 'Console cleared.' }]);
+      setEntries([{ type: 'text', text: terminalStrings?.clearMessage || 'Console cleared.' }]);
       return;
     }
 
-    const commandEntry = { type: 'command', text: `guest@portfolio:~$ ${value}` };
+    const prompt = terminalStrings?.prompt || 'guest@portfolio:~$';
+    const commandEntry = { type: 'command', text: `${prompt} ${value}` };
     
     // Logic to look up commands
-    const lookup = terminalCommands ? terminalCommands[normalized] : null;
+    const lookup = commands && typeof commands === 'object' ? commands[normalized] : null;
 
     let responseEntries;
     if (lookup) {
         responseEntries = lookup.output.map((line) => ({ type: 'text', text: line }));
     } else {
-        responseEntries = [{ type: 'error', text: `Command not found: ${value}. Try "help".` }];
+        const template = terminalStrings?.error || `Command not found: ${value}. Try "help".`;
+        responseEntries = [{
+          type: 'error',
+          text: template.replace('{{command}}', value),
+        }];
     }
 
     setEntries((prev) => [...prev, commandEntry, ...responseEntries]);
@@ -302,7 +337,7 @@ function InteractiveTerminal() {
 
       {/* Input Area (Fixed) */}
       <form onSubmit={handleSubmit} className="mt-2 flex shrink-0 items-center border-t border-white/5 pt-2">
-        <span className="mr-2 text-emerald-500">guest@portfolio:~$</span>
+        <span className="mr-2 text-emerald-500">{terminalStrings?.prompt || 'guest@portfolio:~$'}</span>
         <input
           ref={inputRef}
           value={command}
@@ -321,8 +356,12 @@ function InteractiveTerminal() {
 /*                           2. FRONTEND (SLIDER)                             */
 /* -------------------------------------------------------------------------- */
 
-function FrontendWindow() {
+function FrontendWindow({ strings }) {
   const [activeDevice, setActiveDevice] = useState('desktop');
+  const title = strings?.title || 'UI Compilation Process';
+  const subtitle = strings?.subtitle || 'Drag slider to compare Wireframe vs. Production.';
+  const deviceLabels = strings?.devices || {};
+  const sliderLabels = strings?.labels || {};
   
   // Use provided sketches or fallback to placeholders for demo
   const heroExample = sketchPlaceholders.hero || {
@@ -338,27 +377,31 @@ function FrontendWindow() {
       {/* Controls Header */}
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">UI Compilation Process</h2>
-          <p className="text-sm text-slate-500">Drag slider to compare Wireframe vs. Production.</p>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
+          <p className="text-sm text-slate-500">{subtitle}</p>
         </div>
         <div className="flex self-start rounded-lg border border-slate-200 bg-white p-1 dark:border-white/10 dark:bg-slate-950 sm:self-center">
           <button
             onClick={() => setActiveDevice('desktop')}
             className={cn(
               "flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all",
-              activeDevice === 'desktop' ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300" : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
+              activeDevice === 'desktop'
+                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300"
+                : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
             )}
           >
-            <Monitor size={14} /> Desktop
+            <Monitor size={14} /> {deviceLabels.desktop || 'Desktop'}
           </button>
           <button
             onClick={() => setActiveDevice('mobile')}
             className={cn(
               "flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all",
-              activeDevice === 'mobile' ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300" : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
+              activeDevice === 'mobile'
+                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300"
+                : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-200"
             )}
           >
-            <Smartphone size={14} /> Mobile
+            <Smartphone size={14} /> {deviceLabels.mobile || 'Mobile'}
           </button>
         </div>
       </div>
@@ -369,16 +412,19 @@ function FrontendWindow() {
           device={activeDevice}
           beforeSrc={activeDevice === 'desktop' ? heroExample.desktopSketch : heroExample.mobileSketch}
           afterSrc={activeDevice === 'desktop' ? heroExample.desktopFinal : heroExample.mobileFinal}
+          labels={sliderLabels}
         />
       </div>
     </div>
   );
 }
 
-function CompareSlider({ device, beforeSrc, afterSrc }) {
+function CompareSlider({ device, beforeSrc, afterSrc, labels }) {
   const [percent, setPercent] = useState(50);
   const sliderRef = useRef(null);
   const isDesktop = device === 'desktop';
+  const renderedLabel = labels?.rendered || 'Rendered';
+  const blueprintLabel = labels?.blueprint || 'Blueprint';
 
   const updatePercent = (clientX) => {
     const rect = sliderRef.current?.getBoundingClientRect();
@@ -410,7 +456,7 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
       
       {/* LABEL (Production) */}
       <div className="absolute right-4 top-4 rounded-full bg-black/60 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 backdrop-blur">
-        Rendered
+        {renderedLabel}
       </div>
 
       {/* BEFORE IMAGE (Clipped - Sketch) */}
@@ -423,7 +469,7 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
         
         {/* LABEL (Sketch) */}
         <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-800 shadow-sm backdrop-blur">
-          Blueprint
+          {blueprintLabel}
         </div>
       </div>
 
@@ -443,10 +489,19 @@ function CompareSlider({ device, beforeSrc, afterSrc }) {
 /*                   5. DESIGNER WINDOW (THE HOLOGRAPHIC LAB)                 */
 /* -------------------------------------------------------------------------- */
 
-function DesignerWindow() {
+function DesignerWindow({ strings }) {
   const [spread, setSpread] = useState(0); 
   const [wireframe, setWireframe] = useState(false);
   const [glow, setGlow] = useState(true);
+  const labels = {
+    visualEngine: strings?.visualEngineLabel || 'Visual Engine',
+    logoLabTitle: strings?.logoLabTitle || 'Logo Lab',
+    logoLabDescription: strings?.logoLabDescription || 'Interact with the brand identity in 3D space.',
+    explosionFactor: strings?.explosionFactor || 'Explosion Factor',
+    neonBloom: strings?.neonBloom || 'Neon Bloom',
+    renderModes: strings?.renderModes || 'Render Modes',
+    interactivePreview: strings?.interactivePreview || 'Interactive Preview',
+  };
   
   return (
 
@@ -458,10 +513,10 @@ function DesignerWindow() {
         
         <div className="mb-6 lg:mb-8">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-emerald-500">
-            <Scan size={14} /> Visual Engine
+            <Scan size={14} /> {labels.visualEngine}
           </div>
-          <h3 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">Logo Lab</h3>
-          <p className="text-xs text-slate-500 mt-1">Interact with the brand identity in 3D space.</p>
+          <h3 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">{labels.logoLabTitle}</h3>
+          <p className="text-xs text-slate-500 mt-1">{labels.logoLabDescription}</p>
         </div>
 
         <div className="space-y-6 lg:space-y-8">
@@ -469,7 +524,7 @@ function DesignerWindow() {
           {/* Slider */}
           <div className="space-y-3">
             <div className="flex justify-between text-xs font-medium text-slate-600 dark:text-slate-300">
-              <span className="flex items-center gap-2"><Layers size={12} /> Explosion Factor</span>
+              <span className="flex items-center gap-2"><Layers size={12} /> {labels.explosionFactor}</span>
               <span className="font-mono text-emerald-500">{spread}%</span>
             </div>
             <input 
@@ -484,7 +539,9 @@ function DesignerWindow() {
 
           {/* Toggles */}
           <div className="space-y-3">
-             <label className="text-xs font-medium uppercase text-slate-400 tracking-wider">Render Modes</label>
+             <label className="text-xs font-medium uppercase text-slate-400 tracking-wider">
+               {labels.renderModes}
+             </label>
              
              <button 
                 onClick={() => setWireframe(!wireframe)}
@@ -503,7 +560,7 @@ function DesignerWindow() {
                 className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white p-3 transition-all hover:border-emerald-500 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-500"
              >
                <span className="flex items-center gap-2 text-sm font-medium dark:text-slate-200">
-                 <Zap size={14} /> Neon Bloom
+                 <Zap size={14} /> {labels.neonBloom}
                </span>
                <div className={cn("h-4 w-8 rounded-full p-0.5 transition-colors", glow ? "bg-emerald-500" : "bg-slate-300 dark:bg-slate-700")}>
                  <motion.div animate={{ x: glow ? 16 : 0 }} className="h-3 w-3 rounded-full bg-white shadow-sm" />
@@ -540,7 +597,7 @@ function DesignerWindow() {
         <HolographicLogo spread={spread} wireframe={wireframe} glow={glow} />
 
         <div className="pointer-events-none absolute bottom-6 text-[10px] font-medium uppercase tracking-[0.3em] text-slate-400 opacity-50">
-          Interactive Preview
+          {labels.interactivePreview}
         </div>
       </div>
     </div>

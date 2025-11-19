@@ -227,7 +227,8 @@
     "statusLabel": "Statut",
     "locationLabel": "Remote / Paris",
     "locationDescription": "Disponible sur les fuseaux EU/US.",
-    "ctaSchedule": "Planifier un appel"
+    "ctaSchedule": "Planifier un appel",
+    "emailAddress": "hello@example.com"
   },
   "languages": {
     "en": "English",
@@ -288,5 +289,448 @@
       }
     },
     "viewButton": "Voir"
+  },
+  "home2": {
+    "terminal": {
+      "windowTitle": "bash - dev_env",
+      "portLabel": "Port : 3000",
+      "status": "En ligne",
+      "script": [
+        {
+          "text": "Initialisation du système...",
+          "color": "text-slate-500"
+        },
+        {
+          "text": "Chargement des modules : [React, Node, Design]...",
+          "color": "text-slate-400"
+        },
+        {
+          "text": ">> Accès autorisé.",
+          "color": "text-emerald-500"
+        },
+        {
+          "text": "",
+          "color": "text-transparent"
+        },
+        {
+          "text": "Bonjour, je suis",
+          "color": "text-slate-200"
+        },
+        {
+          "text": "YOUNES",
+          "color": "text-emerald-400 font-bold text-lg tracking-wider"
+        },
+        {
+          "text": "Développeur full-stack & architecte UI",
+          "color": "text-blue-400"
+        },
+        {
+          "text": "",
+          "color": "text-transparent"
+        },
+        {
+          "text": "Statut actuel :",
+          "color": "text-slate-400"
+        },
+        {
+          "text": "-> Je crée des expériences numériques au Maroc.",
+          "color": "text-amber-300"
+        },
+        {
+          "text": "-> Prêt pour de nouveaux défis.",
+          "color": "text-emerald-300"
+        }
+      ]
+    },
+    "glitchFallback": "Développeur créatif"
+  },
+  "projectsPage": {
+    "projectLabel": "Projet",
+    "systemArchitecture": "Architecture système",
+    "visitCta": "Voir le site",
+    "interact": "Interagir",
+    "lock": "Verrouiller",
+    "imageLabel": "Img",
+    "interactHint": "Cliquez sur \"Interagir\" pour utiliser le site",
+    "imageMissing": "APERÇU NON DISPONIBLE",
+    "externalPreview": "Aperçu externe uniquement",
+    "items": [
+      {
+        "id": "ksar-data",
+        "title": "Ksar-Data",
+        "subtitle": "Plateforme open data",
+        "url": "https://www.ksardata.com",
+        "date": "2024",
+        "embeddable": true,
+        "image": "/public/ksardata-screen.png",
+        "stack": [
+          "React",
+          "ShadCN",
+          "Tailwind",
+          "Vercel"
+        ],
+        "desc": "Initiative civic-tech qui apporte de la transparence à Ksar El Kebir. Visualise les budgets municipaux et les données du recensement.",
+        "color": "from-emerald-500 to-teal-900",
+        "accent": "text-emerald-400",
+        "border": "border-emerald-500/50",
+        "shadow": "shadow-emerald-500/20"
+      },
+      {
+        "id": "tarik-school",
+        "title": "Tarik Ibn Ziyad",
+        "subtitle": "Portail scolaire",
+        "url": "https://www.tarikibnziyad.com",
+        "date": "2023",
+        "embeddable": true,
+        "image": "",
+        "stack": [
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "Static"
+        ],
+        "desc": "Transformation numérique pour une institution traditionnelle. Plateforme légère et bilingue reliant parents et élèves.",
+        "color": "from-blue-600 to-indigo-900",
+        "accent": "text-blue-400",
+        "border": "border-blue-500/50",
+        "shadow": "shadow-blue-500/20"
+      },
+      {
+        "id": "walid-portfolio",
+        "title": "Walid Mouhan",
+        "subtitle": "Portfolio académique",
+        "url": "https://www.walidmouhan.com",
+        "date": "2023",
+        "embeddable": false,
+        "image": "/walid-screen.png",
+        "stack": [
+          "Django",
+          "Python",
+          "Tailwind",
+          "Render"
+        ],
+        "desc": "Portfolio minimaliste pour un doctorant. Focus sur la hiérarchie du contenu et l'archivage des publications.",
+        "color": "from-amber-500 to-orange-900",
+        "accent": "text-amber-400",
+        "border": "border-amber-500/50",
+        "shadow": "shadow-amber-500/20"
+      }
+    ]
+  },
+  "experiencePage": {
+    "badge": "Journal système",
+    "title": {
+      "primary": "Parcours",
+      "accent": "Pro"
+    },
+    "subtitle": "// HISTORIQUE_EXÉCUTION : suivre l'évolution de l'étudiant au fondateur.",
+    "timeline": [
+      {
+        "id": "opicom",
+        "role": "Fondateur & architecte principal",
+        "company": "OPICOM Tech",
+        "period": "En cours",
+        "desc": "La base de mon futur studio : tech, design et transparence pour les acteurs locaux.",
+        "tags": [
+          "Vision",
+          "Leadership",
+          "R&D",
+          "Civic tech"
+        ],
+        "icon": "BrainCircuit",
+        "color": "emerald"
+      },
+      {
+        "id": "freelance",
+        "role": "Développeur full-stack",
+        "company": "Freelance / Indépendant",
+        "period": "3-4 ans",
+        "desc": "Des projets réels pour des clients réels. Livraison idée → design → dev → déploiement.",
+        "tags": [
+          "Full-Stack",
+          "Relation client",
+          "Déploiement",
+          "Architecture"
+        ],
+        "icon": "Cpu",
+        "color": "amber"
+      },
+      {
+        "id": "instructor",
+        "role": "Formateur tech",
+        "company": "Différentes écoles",
+        "period": "Temps partiel",
+        "desc": "J'enseigne l'IT, Photoshop et les bases digitales. Partager renforce ma pédagogie en code.",
+        "tags": [
+          "Mentorat",
+          "Communication",
+          "Culture digitale",
+          "Outils design"
+        ],
+        "icon": "Network",
+        "color": "blue"
+      },
+      {
+        "id": "education",
+        "role": "Licence info + autodidacte",
+        "company": "Université & CS50",
+        "period": "Origine",
+        "desc": "CS50 Harvard comme point de départ. Des nuits à documenter, déboguer et construire.",
+        "tags": [
+          "Informatique",
+          "Auto-apprentissage",
+          "Recherche",
+          "Algorithmes"
+        ],
+        "icon": "GraduationCap",
+        "color": "rose"
+      }
+    ],
+    "achievements": [
+      {
+        "label": "Projets livrés",
+        "value": "10+",
+        "icon": "Server"
+      },
+      {
+        "label": "1ère plateforme open data (Ksar)",
+        "value": "LANCÉ",
+        "icon": "Database"
+      },
+      {
+        "label": "Maîtrise de la stack",
+        "value": "ÉLEVÉ",
+        "icon": "Code2"
+      },
+      {
+        "label": "Workflow d'intégration IA",
+        "value": "ACTIF",
+        "icon": "Zap"
+      }
+    ],
+    "achievementsTitle": "Benchmarks système",
+    "achievementsSubtitle": "Analyse de performance & points forts",
+    "achievementsFooter": {
+      "id": "ID : YOUNES-DEV-001",
+      "status": "STATUT : PRÊT À TRAVAILLER"
+    }
+  },
+  "aboutPage2": {
+    "backend": {
+      "sidebar": {
+        "systemLabel": "SYSTEM_ROOT",
+        "cpuLabel": "CPU",
+        "cpuValue": "12 %",
+        "ramLabel": "RAM",
+        "ramValue": "424 Mo",
+        "processesLabel": "PROCESSUS :",
+        "processes": [
+          {
+            "name": "node_server",
+            "pid": "PID : 402",
+            "active": true
+          },
+          {
+            "name": "docker_daemon",
+            "pid": "PID : 119",
+            "active": false
+          },
+          {
+            "name": "postgres_worker",
+            "pid": "PID : 882",
+            "active": false
+          }
+        ],
+        "uptime": "Uptime : 14j 2h 12m"
+      },
+      "terminal": {
+        "status": "SSH : connecté",
+        "banner": "Younes Shell interactif v2.0.4",
+        "connectedMessage": "Connecté à l'instance distante.",
+        "helpHint": "Tapez \"help\" pour voir les commandes.",
+        "clearMessage": "Console nettoyée.",
+        "prompt": "invité@portfolio:~$",
+        "error": "Commande introuvable : {{command}}. Essayez \"help\"."
+      }
+    },
+    "frontend": {
+      "title": "Processus de compilation UI",
+      "subtitle": "Faites glisser pour comparer wireframe et version finale.",
+      "devices": {
+        "desktop": "Desktop",
+        "mobile": "Mobile"
+      },
+      "labels": {
+        "rendered": "Rendu",
+        "blueprint": "Blueprint"
+      }
+    },
+    "designer": {
+      "visualEngineLabel": "Moteur visuel",
+      "logoLabTitle": "Logo Lab",
+      "logoLabDescription": "Interagissez avec l'identité en 3D.",
+      "explosionFactor": "Facteur d'explosion",
+      "neonBloom": "Lueur néon",
+      "renderModes": "Modes de rendu",
+      "interactivePreview": "Aperçu interactif"
+    }
+  },
+  "terminalData": {
+    "commands": {
+      "help": {
+        "description": "Lister les commandes disponibles",
+        "output": [
+          "Commandes disponibles :",
+          "  about       - Qui est Younes ?",
+          "  stacks      - Arsenal technologique",
+          "  projects    - Études de cas",
+          "  experience  - Chronologie de carrière",
+          "  contact     - Canaux de contact",
+          "  setup       - Matériel & configuration logicielle",
+          "  ls          - Lister le répertoire",
+          "  clear       - Nettoyer le terminal"
+        ]
+      },
+      "?": {
+        "description": "Alias de help",
+        "output": [
+          "Tapez \"help\" pour voir les commandes."
+        ]
+      },
+      "clear": {
+        "description": "Nettoie le terminal",
+        "output": []
+      },
+      "about": {
+        "description": "Afficher une bio courte",
+        "output": [
+          ">> IDENTITÉ_VALIDÉE",
+          "Younes El Bettate",
+          "-----------------",
+          "Développeur full-stack autodidacte & fondateur d'OPICOM Tech.",
+          "Basé au Maroc 🇲🇦",
+          "Focus : créer des produits numériques utiles, outils civic-tech et systèmes scolaires."
+        ]
+      },
+      "full_name": {
+        "description": "Afficher le nom complet",
+        "output": [
+          "Younes El Bettate"
+        ]
+      },
+      "skills": {
+        "description": "Lister les compétences clés",
+        "output": [
+          ">> CHARGEMENT_SKILL_MATRIX...",
+          "- Architecture : design d'API, microservices, MVC",
+          "- UI/UX : motion design, prototypage rapide, design systems",
+          "- Stratégie : product management, Agile/Scrum"
+        ]
+      },
+      "stacks": {
+        "description": "Lister les stacks principales",
+        "output": [
+          ">> ANALYSE_DU_CODE...",
+          "[BACKEND]   Python (Django, FastAPI), PostgreSQL, Redis, Docker",
+          "[FRONTEND]  React, TypeScript, TailwindCSS, Framer Motion",
+          "[MOBILE]    React Native, Expo",
+          "[DESKTOP]   Tauri, Electron"
+        ]
+      },
+      "projects": {
+        "description": "Afficher les projets phares",
+        "output": [
+          "1. Ksar-Data ....... [Dashboard civic-tech]",
+          "2. OPICOM Studio ... [Portfolio d'agence]",
+          "3. Restaurant OS ... [Système POS]",
+          "4. School MS ....... [Plateforme EdTech]",
+          "",
+          "Tapez \"open <nom_projet>\" (bientôt) pour voir les détails."
+        ]
+      },
+      "experience": {
+        "description": "Résumé de l'expérience",
+        "output": [
+          ">> CHRONOLOGIE_OK",
+          "[202X - Maintenant] Fondateur @ OPICOM Tech",
+          "[202X - 202X] Développeur full-stack freelance",
+          "-----------------",
+          "4+ ans à livrer des solutions complètes pour écoles, civic-tech et clients indépendants."
+        ]
+      },
+      "contact": {
+        "description": "Comment me joindre",
+        "output": [
+          ">> OUVERTURE_DES_CANAL...",
+          "Email :    bt.younesse@gmail.com",
+          "GitHub :   github.com/Younes-bt",
+          "LinkedIn : /in/unesbt42"
+        ]
+      },
+      "ls": {
+        "description": "Lister les fichiers",
+        "output": [
+          "drwxr-xr-x  younes  projects/",
+          "drwxr-xr-x  younes  skills/",
+          "drwxr-xr-x  younes  config/",
+          "-rw-r--r--  younes  resume.pdf",
+          "-rw-r--r--  younes  secret_plans.txt"
+        ]
+      },
+      "pwd": {
+        "description": "Afficher le dossier courant",
+        "output": [
+          "/home/guest/portfolio"
+        ]
+      },
+      "whoami": {
+        "description": "Utilisateur courant",
+        "output": [
+          "guest@younes.dev (Niveau : VISITEUR)"
+        ]
+      },
+      "date": {
+        "description": "Afficher la date",
+        "output": [
+          "{date}"
+        ]
+      },
+      "setup": {
+        "description": "Environnement de dev",
+        "output": [
+          ">> RÉCUP_CONFIG...",
+          "- Éditeur : VS Code (One Dark Pro)",
+          "- Police : Geist Mono / JetBrains Mono",
+          "- Terminal : Zsh + Oh My Zsh + Starship",
+          "- Navigateur : Arc / Chrome Dev"
+        ]
+      },
+      "sudo": {
+        "description": "Superuser do",
+        "output": [
+          "J'aime ta façon de penser ! Incident signalé.",
+          "(Bien tenté.)"
+        ]
+      },
+      "cat": {
+        "description": "Lire un fichier",
+        "output": [
+          "usage : cat <fichier> (Accès disque limité pour les invités)"
+        ]
+      },
+      "coffee": {
+        "description": "Préparer un café",
+        "output": [
+          "? Infusion...",
+          "Erreur 418 : je suis une théière."
+        ]
+      },
+      "exit": {
+        "description": "Fermer le terminal",
+        "output": [
+          "Impossible de fuir. Engagez-moi d'abord."
+        ]
+      }
+    }
   }
 }

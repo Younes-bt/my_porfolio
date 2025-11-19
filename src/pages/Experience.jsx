@@ -5,10 +5,11 @@ import {
   Code2, Terminal, CheckCircle2, Zap, 
   Server, PenTool, BrainCircuit 
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
 // --- DATA: THE SYSTEM LOGS ---
-const experienceData = [
+const defaultExperience = [
   {
     id: 'opicom',
     role: 'Founder & Lead Architect',
@@ -55,23 +56,69 @@ const experienceData = [
   }
 ];
 
-const achievements = [
+const defaultAchievements = [
   { label: 'Real-World Projects Delivered', value: '10+', icon: Server },
   { label: 'First Open-Data Platform (Ksar)', value: 'LAUNCHED', icon: DatabaseIcon },
   { label: 'Stack Proficiency', value: 'HIGH', icon: Code2 },
   { label: 'AI Integration Workflow', value: 'ACTIVE', icon: Zap },
 ];
 
+const iconMap = {
+  BrainCircuit,
+  Cpu,
+  Network,
+  GraduationCap,
+  Server,
+  Database: DatabaseIcon,
+  Code2,
+  Zap,
+};
+
 // Helper Icon for the array above
 function DatabaseIcon(props) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>}
 
 
 export default function ExperiencePage() {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
+  const experienceStrings = t('experiencePage', { returnObjects: true }) || {};
+  const timelineSource = Array.isArray(experienceStrings.timeline) ? experienceStrings.timeline : [];
+  const timelineData =
+    timelineSource.length > 0
+      ? timelineSource
+      : defaultExperience;
+  const normalizedTimeline = timelineData.map((item, index) => {
+    const fallback = defaultExperience[index] || defaultExperience[0];
+    const iconComponent = iconMap[item.icon] || fallback.icon || BrainCircuit;
+    return { ...fallback, ...item, icon: iconComponent };
+  });
+  const achievementsSource = Array.isArray(experienceStrings.achievements)
+    ? experienceStrings.achievements
+    : [];
+  const achievementsData =
+    achievementsSource.length > 0
+      ? achievementsSource
+      : defaultAchievements;
+  const normalizedAchievements = achievementsData.map((item, index) => {
+    const fallback = defaultAchievements[index] || defaultAchievements[0];
+    const iconComponent = iconMap[item.icon] || fallback.icon || Server;
+    return { ...fallback, ...item, icon: iconComponent };
+  });
+  const headerBadge = experienceStrings.badge || 'System Log';
+  const titlePrimary = experienceStrings.title?.primary || 'Career';
+  const titleAccent = experienceStrings.title?.accent || 'Trace';
+  const headerSubtitle =
+    experienceStrings.subtitle || '// EXECUTION_HISTORY: Tracking the evolution from student to founder.';
+  const achievementsTitle = experienceStrings.achievementsTitle || 'System Benchmarks';
+  const achievementsSubtitle = experienceStrings.achievementsSubtitle || 'Performance Analysis & Highlights';
+  const achievementsFooter = experienceStrings.achievementsFooter || {
+    id: 'ID: YOUNES-DEV-001',
+    status: 'STATUS: READY_TO_WORK',
+  };
 
   return (
     <div ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#050505] px-4 py-16 selection:bg-emerald-500/30">
@@ -90,13 +137,16 @@ export default function ExperiencePage() {
         <header className="mb-20 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500">
             <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            System Log
+            {headerBadge}
           </div>
           <h1 className="text-4xl font-black uppercase tracking-tight text-white md:text-6xl">
-            Career <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Trace</span>
+            {titlePrimary}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+              {titleAccent}
+            </span>
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-sm font-mono text-slate-500">
-            // EXECUTION_HISTORY: Tracking the evolution from student to founder.
+            {headerSubtitle}
           </p>
         </header>
 
@@ -116,7 +166,7 @@ export default function ExperiencePage() {
 
           {/* EXPERIENCE MODULES */}
           <div className="space-y-16 md:space-y-24">
-            {experienceData.map((item, index) => (
+            {normalizedTimeline.map((item, index) => (
               <CircuitModule key={item.id} item={item} index={index} />
             ))}
           </div>
@@ -125,7 +175,12 @@ export default function ExperiencePage() {
 
         {/* --- SYSTEM SPECS (ACHIEVEMENTS) --- */}
         <div className="mt-32">
-          <AchievementsBoard />
+          <AchievementsBoard
+            data={normalizedAchievements}
+            title={achievementsTitle}
+            subtitle={achievementsSubtitle}
+            footer={achievementsFooter}
+          />
         </div>
 
       </div>
@@ -242,7 +297,9 @@ function CircuitModule({ item, index }) {
 }
 
 // --- COMPONENT: ACHIEVEMENTS BOARD (SPECS SHEET) ---
-function AchievementsBoard() {
+function AchievementsBoard({ data, title, subtitle, footer }) {
+  const achievementList = data && data.length > 0 ? data : defaultAchievements;
+  const footerInfo = footer || { id: 'ID: YOUNES-DEV-001', status: 'STATUS: READY_TO_WORK' };
   return (
     <div className="rounded-2xl border border-slate-800 bg-[#080808] p-8 relative overflow-hidden">
       {/* Scanline Overlay */}
@@ -254,13 +311,15 @@ function AchievementsBoard() {
              <Zap size={24} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">System Benchmarks</h2>
-            <p className="text-xs text-slate-500 uppercase tracking-wider">Performance Analysis & Highlights</p>
+            <h2 className="text-xl font-bold text-white">{title || 'System Benchmarks'}</h2>
+            <p className="text-xs text-slate-500 uppercase tracking-wider">
+              {subtitle || 'Performance Analysis & Highlights'}
+            </p>
           </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {achievements.map((ach, i) => (
+          {achievementList.map((ach, i) => (
             <div key={i} className="group relative p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-colors">
                <div className="mb-3 text-slate-500 group-hover:text-emerald-500 transition-colors">
                  <ach.icon size={20} />
@@ -273,8 +332,8 @@ function AchievementsBoard() {
         
         {/* Bottom Code Snippet decoration */}
         <div className="mt-8 flex items-center justify-between font-mono text-[10px] text-slate-600">
-          <span>ID: YOUNES-DEV-001</span>
-          <span>STATUS: READY_TO_WORK</span>
+          <span>{footerInfo.id}</span>
+          <span>{footerInfo.status}</span>
         </div>
       </div>
     </div>
